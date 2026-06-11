@@ -86,9 +86,9 @@
         return;
       }
 
-      // Les boutons ATS partagent la classe .cv-print-btn pour le style,
-      // mais ne doivent PAS déclencher l'impression du CV stylisé.
-      if (trigger.matches('[data-action="ats-pdf"], [data-action="ats-txt"]')) {
+      // Les boutons ATS et Partager partagent la classe .cv-print-btn pour
+      // le style, mais ne doivent PAS déclencher l'impression du CV stylisé.
+      if (trigger.matches('[data-action="ats-pdf"], [data-action="ats-txt"], [data-action="share"]')) {
         return;
       }
 
@@ -553,12 +553,95 @@
   }
 
   /* ----------------------------------------------------------------
+   * 5. Partage du CV (pensé pour le smartphone)
+   *
+   * Sur mobile, navigator.share ouvre la feuille de partage native
+   * (WhatsApp, SMS, mail, AirDrop…). À défaut (desktop), on copie le
+   * lien dans le presse-papiers avec un feedback sur le bouton.
+   * ---------------------------------------------------------------- */
+
+  function showShareFeedback(button, message) {
+    if (!button) {
+      return;
+    }
+    if (!button.hasAttribute('data-original-label')) {
+      button.setAttribute('data-original-label', button.textContent);
+    }
+    button.classList.add('is-copied');
+    button.textContent = message;
+    window.setTimeout(function () {
+      button.classList.remove('is-copied');
+      button.textContent = button.getAttribute('data-original-label');
+    }, 2000);
+  }
+
+  function copyShareLink(button, url) {
+    var done = function () { showShareFeedback(button, 'Lien copié !'); };
+    var fail = function () { showShareFeedback(button, url); };
+
+    if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+      navigator.clipboard.writeText(url).then(done, fail);
+      return;
+    }
+
+    // Repli pour les anciens navigateurs : zone de texte temporaire.
+    var textarea = document.createElement('textarea');
+    textarea.value = url;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand('copy');
+      done();
+    } catch (e) {
+      fail();
+    }
+    document.body.removeChild(textarea);
+  }
+
+  function shareCv(button) {
+    var url = window.location.href;
+    var data = {
+      title: document.title,
+      text: 'CV de Grégory Dernaucourt — Développeur Angular / TypeScript',
+      url: url
+    };
+
+    if (navigator.share) {
+      // L'utilisateur peut annuler la feuille de partage : ce n'est pas
+      // une erreur, on l'ignore silencieusement.
+      navigator.share(data).catch(function () {});
+      return;
+    }
+
+    copyShareLink(button, url);
+  }
+
+  function initShare() {
+    document.addEventListener('click', function (event) {
+      var target = event.target;
+      if (!target || typeof target.closest !== 'function') {
+        return;
+      }
+      var trigger = target.closest('[data-action="share"]');
+      if (!trigger) {
+        return;
+      }
+      event.preventDefault();
+      shareCv(trigger);
+    });
+  }
+
+  /* ----------------------------------------------------------------
    * Initialisation
    * ---------------------------------------------------------------- */
 
   function init() {
     initPrint();
     initAts();
+    initShare();
     initPageAnimation();
     // Log discret.
     if (window.console && typeof window.console.log === 'function') {
