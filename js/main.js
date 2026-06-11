@@ -635,6 +635,170 @@
   }
 
   /* ----------------------------------------------------------------
+   * 6. Sommaire mobile (table des matières)
+   *
+   * Construit le panneau de navigation à partir des sections marquées
+   * [data-nav-label], groupées par page ([data-nav-group]). Source
+   * unique = ce DOM : ajouter une section au CV suffit à l'inscrire
+   * au sommaire. Le bouton flottant n'apparaît qu'en mobile (CSS).
+   * ---------------------------------------------------------------- */
+
+  function buildNavPanel(panelBody) {
+    var groups = document.querySelectorAll('.cv-page[data-nav-group]');
+    var built = false;
+
+    Array.prototype.forEach.call(groups, function (page) {
+      var items = page.querySelectorAll('[data-nav-label]');
+      if (!items.length) {
+        return;
+      }
+
+      var groupEl = document.createElement('section');
+      groupEl.className = 'cv-nav-group';
+
+      var titleEl = document.createElement('h3');
+      titleEl.className = 'cv-nav-group__title';
+      titleEl.textContent = page.getAttribute('data-nav-group');
+      groupEl.appendChild(titleEl);
+
+      var listEl = document.createElement('ol');
+      listEl.className = 'cv-nav-list';
+
+      Array.prototype.forEach.call(items, function (section) {
+        if (!section.id) {
+          return;
+        }
+        var li = document.createElement('li');
+        li.className = 'cv-nav-item';
+        var a = document.createElement('a');
+        a.className = 'cv-nav-link';
+        a.href = '#' + section.id;
+        a.textContent = section.getAttribute('data-nav-label');
+        li.appendChild(a);
+        listEl.appendChild(li);
+      });
+
+      groupEl.appendChild(listEl);
+      panelBody.appendChild(groupEl);
+      built = true;
+    });
+
+    return built;
+  }
+
+  // Marque comme « courante » la dernière section passée sous la toolbar.
+  function highlightCurrentSection(panel) {
+    var links = panel.querySelectorAll('.cv-nav-link');
+    if (!links.length) {
+      return;
+    }
+    var offset = window.scrollY + 120; // hauteur toolbar + marge
+    var currentId = '';
+    Array.prototype.forEach.call(links, function (link) {
+      var id = (link.getAttribute('href') || '').slice(1);
+      var section = id ? document.getElementById(id) : null;
+      link.classList.remove('is-current');
+      if (section) {
+        var top = section.getBoundingClientRect().top + window.scrollY;
+        if (top <= offset) {
+          currentId = id;
+        }
+      }
+    });
+    if (currentId) {
+      var current = panel.querySelector('.cv-nav-link[href="#' + currentId + '"]');
+      if (current) {
+        current.classList.add('is-current');
+      }
+    }
+  }
+
+  function initSectionNav() {
+    var fab = document.querySelector('[data-action="nav-toggle"]');
+    var panel = document.getElementById('cv-nav-panel');
+    var backdrop = document.querySelector('.cv-nav-backdrop');
+    var panelBody = panel ? panel.querySelector('.cv-nav-panel__body') : null;
+
+    if (!fab || !panel || !backdrop || !panelBody) {
+      return;
+    }
+
+    if (!buildNavPanel(panelBody)) {
+      // Aucune section marquée : on retire l'UI pour ne pas afficher
+      // un sommaire vide.
+      fab.parentNode.removeChild(fab);
+      return;
+    }
+
+    var isOpen = false;
+
+    function openNav() {
+      if (isOpen) {
+        return;
+      }
+      isOpen = true;
+      highlightCurrentSection(panel);
+      panel.classList.add('is-open');
+      backdrop.classList.add('is-open');
+      panel.setAttribute('aria-hidden', 'false');
+      fab.setAttribute('aria-expanded', 'true');
+      var closeBtn = panel.querySelector('.cv-nav-panel__close');
+      if (closeBtn) {
+        closeBtn.focus();
+      }
+    }
+
+    function closeNav(restoreFocus) {
+      if (!isOpen) {
+        return;
+      }
+      isOpen = false;
+      panel.classList.remove('is-open');
+      backdrop.classList.remove('is-open');
+      panel.setAttribute('aria-hidden', 'true');
+      fab.setAttribute('aria-expanded', 'false');
+      if (restoreFocus) {
+        fab.focus();
+      }
+    }
+
+    document.addEventListener('click', function (event) {
+      var target = event.target;
+      if (!target || typeof target.closest !== 'function') {
+        return;
+      }
+
+      if (target.closest('[data-action="nav-toggle"]')) {
+        event.preventDefault();
+        if (isOpen) {
+          closeNav(true);
+        } else {
+          openNav();
+        }
+        return;
+      }
+
+      if (target.closest('[data-action="nav-close"]')) {
+        event.preventDefault();
+        closeNav(true);
+        return;
+      }
+
+      // Clic sur un lien du sommaire : on laisse l'ancre faire le
+      // défilement (scroll-behavior: smooth) et on referme le panneau.
+      if (target.closest('.cv-nav-link')) {
+        closeNav(false);
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        closeNav(true);
+      }
+    });
+  }
+
+  /* ----------------------------------------------------------------
    * Initialisation
    * ---------------------------------------------------------------- */
 
@@ -642,6 +806,7 @@
     initPrint();
     initAts();
     initShare();
+    initSectionNav();
     initPageAnimation();
     // Log discret.
     if (window.console && typeof window.console.log === 'function') {

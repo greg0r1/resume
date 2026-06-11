@@ -64,7 +64,7 @@
     <!-- ========================================================
          PAGE 1
          ======================================================== -->
-    <section class="cv-page" id="page-1" aria-label="Page 1 du CV">
+    <section class="cv-page" id="page-1" aria-label="Page 1 du CV" data-nav-group="Page 1 · L'essentiel">
 
       <!-- ----- EN-TÊTE ----- -->
       <header class="cv-header">
@@ -110,7 +110,7 @@
         <div class="cv-main">
 
           <!-- Résumé -->
-          <p class="cv-summary">
+          <p class="cv-summary" id="profil" data-nav-label="Profil">
             Développeur Angular/TypeScript, trois ans en production sur des applications critiques chez un éditeur SaaS.
             Je conçois des front-ends rigoureux — Clean Architecture orientée domaine, principes SOLID, design patterns
             et injection de dépendances — testables et taillés pour la charge. Maîtrise de l'état réactif (Signals,
@@ -118,7 +118,7 @@
           </p>
 
           <!-- ===== SECTION EXPÉRIENCE ===== -->
-          <section class="cv-section">
+          <section class="cv-section" id="experience" data-nav-label="Expérience">
             <h2 class="cv-section-title">Expérience</h2>
 
             <!-- Poste : Développeur Front-End Angular -->
@@ -188,7 +188,7 @@
         <aside class="cv-side">
 
           <!-- FRONTEND -->
-          <section class="cv-side-block">
+          <section class="cv-side-block" id="competences" data-nav-label="Compétences">
             <h2 class="cv-side-title">Frontend</h2>
             <ul class="cv-tags">
               <li class="cv-tag cv-tag--highlight">Angular 17-19</li>
@@ -236,7 +236,7 @@
           </section>
 
           <!-- FORMATION -->
-          <section class="cv-side-block">
+          <section class="cv-side-block" id="formation" data-nav-label="Formation">
             <h2 class="cv-side-title">Formation</h2>
             <ul class="cv-edu">
               <li class="cv-edu-item">
@@ -255,7 +255,7 @@
           </section>
 
           <!-- LANGUES -->
-          <section class="cv-side-block">
+          <section class="cv-side-block" id="langues" data-nav-label="Langues">
             <h2 class="cv-side-title">Langues</h2>
             <ul class="cv-lang">
               <li class="cv-lang-item">
@@ -279,10 +279,10 @@
     <!-- ========================================================
          PAGE 2
          ======================================================== -->
-    <section class="cv-page" id="page-2" aria-label="Page 2 du CV">
+    <section class="cv-page" id="page-2" aria-label="Page 2 du CV" data-nav-group="Page 2 · Parcours">
 
       <!-- ----- EN-TÊTE PAGE 2 ----- -->
-      <header class="cv-page2-header">
+      <header class="cv-page2-header" id="parcours" data-nav-label="Parcours IT &amp; technique">
         <h2 class="cv-section-title cv-section-title--page2">Parcours IT &amp; technique</h2>
         <p class="cv-page2-subtitle">Un fil rouge : la technique au service de l'utilisateur. Du support terrain à
           l'architecture Angular, chaque étape a appris à livrer un produit qui marche.</p>
@@ -374,7 +374,7 @@
       <div class="cv-bottom-cols">
 
         <!-- CERTIFICATIONS -->
-        <section class="cv-bottom-col">
+        <section class="cv-bottom-col" id="certifications" data-nav-label="Certifications">
           <h2 class="cv-side-title">Certifications</h2>
           <ul class="cv-chevron-list">
             <li class="cv-chevron-item">Certification CodinGame — JavaScript</li>
@@ -386,7 +386,7 @@
         </section>
 
         <!-- CENTRES D'INTÉRÊT -->
-        <section class="cv-bottom-col">
+        <section class="cv-bottom-col" id="interets" data-nav-label="Centres d'intérêt">
           <h2 class="cv-side-title">Centres d'intérêt</h2>
           <ul class="cv-chevron-list">
             <li class="cv-chevron-item">Krav Maga — pratiquant, club KMCS</li>
@@ -396,7 +396,7 @@
         </section>
 
         <!-- VISION -->
-        <section class="cv-bottom-col">
+        <section class="cv-bottom-col" id="vision" data-nav-label="Vision">
           <h2 class="cv-side-title">Vision</h2>
           <p class="cv-vision">
             Évoluer vers une <strong class="cv-highlight">expertise full-stack</strong>, en combinant rigueur technique
@@ -417,6 +417,38 @@
     </section><!-- /#page-2 -->
 
   </main><!-- /.cv-document -->
+
+  <!-- ============================================================
+       SOMMAIRE MOBILE (hors zone imprimable)
+       Bouton flottant + panneau « Table des matières » : accès
+       direct aux sections marquées data-nav-label. Le panneau est
+       rempli dynamiquement par js/main.js.
+       ============================================================ -->
+  <button type="button" class="cv-nav-fab" data-action="nav-toggle" aria-haspopup="dialog" aria-expanded="false"
+    aria-controls="cv-nav-panel" aria-label="Ouvrir la table des matières">
+    <svg class="cv-nav-fab__icon" aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <line x1="8" y1="6" x2="20" y2="6" />
+      <line x1="8" y1="12" x2="20" y2="12" />
+      <line x1="8" y1="18" x2="20" y2="18" />
+      <circle cx="4" cy="6" r="0.5" fill="currentColor" />
+      <circle cx="4" cy="12" r="0.5" fill="currentColor" />
+      <circle cx="4" cy="18" r="0.5" fill="currentColor" />
+    </svg>
+  </button>
+
+  <div class="cv-nav-backdrop" data-action="nav-close" aria-hidden="true"></div>
+
+  <nav class="cv-nav-panel" id="cv-nav-panel" role="dialog" aria-modal="true" aria-label="Table des matières"
+    aria-hidden="true">
+    <header class="cv-nav-panel__header">
+      <h2 class="cv-nav-panel__title">Table des matières</h2>
+      <button type="button" class="cv-nav-panel__close" data-action="nav-close" aria-label="Fermer">&#10005;</button>
+    </header>
+    <div class="cv-nav-panel__body">
+      <!-- Groupes et liens générés par js/main.js -->
+    </div>
+  </nav>
 
   <!-- Script externe (géré par l'agent JS) -->
   <script src="js/main.js" defer></script>

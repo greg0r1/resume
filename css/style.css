@@ -1159,6 +1159,217 @@ a.cv-contact__value:focus-visible {
   }
 }
 
+/* ------------------------------------------------------------
+   22. SOMMAIRE MOBILE — bouton flottant + panneau
+   Caché par défaut (desktop) : la navigation directe n'a de sens
+   que sur smartphone où le CV devient une longue colonne.
+   ------------------------------------------------------------ */
+
+/* Défilement doux vers les ancres (sauf préférence contraire). */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+.cv-nav-fab,
+.cv-nav-backdrop,
+.cv-nav-panel {
+  display: none;
+}
+
+@media screen and (max-width: 900px) {
+
+  /* Les ancres s'arrêtent sous la toolbar fixe. */
+  [data-nav-label] {
+    scroll-margin-top: 104px;
+  }
+
+  /* --- Bouton flottant (en bas à droite) --- */
+  .cv-nav-fab {
+    position: fixed;
+    right: 16px;
+    bottom: 18px;
+    z-index: 110;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border: none;
+    border-radius: 50%;
+    background: var(--c-terracotta);
+    color: var(--c-cream);
+    box-shadow: 0 4px 16px rgba(43, 43, 40, 0.35);
+    cursor: pointer;
+    transition: background 0.18s ease, transform 0.12s ease;
+  }
+
+  .cv-nav-fab:active {
+    transform: scale(0.94);
+  }
+
+  .cv-nav-fab:focus-visible {
+    outline: 2px solid var(--c-ink);
+    outline-offset: 2px;
+  }
+
+  /* --- Voile derrière le panneau --- */
+  .cv-nav-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 120;
+    background: rgba(43, 43, 40, 0.55);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+  }
+
+  .cv-nav-backdrop.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  /* --- Panneau « Table des matières » (feuille bas d'écran) --- */
+  .cv-nav-panel {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 130;
+    max-height: 78vh;
+    background: var(--c-cream);
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -8px 32px rgba(43, 43, 40, 0.3);
+    transform: translateY(100%);
+    visibility: hidden;
+    transition: transform 0.28s ease, visibility 0.28s ease;
+  }
+
+  .cv-nav-panel.is-open {
+    transform: translateY(0);
+    visibility: visible;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cv-nav-backdrop,
+    .cv-nav-panel {
+      transition: none;
+    }
+  }
+
+  .cv-nav-panel__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 18px 12px;
+    border-bottom: 1px solid var(--c-line-soft);
+  }
+
+  .cv-nav-panel__title {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--c-terracotta);
+  }
+
+  .cv-nav-panel__close {
+    border: none;
+    background: transparent;
+    color: var(--c-ink);
+    font-size: 18px;
+    line-height: 1;
+    padding: 8px;
+    margin: -8px;
+    cursor: pointer;
+  }
+
+  .cv-nav-panel__body {
+    overflow-y: auto;
+    padding: 6px 18px 24px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Groupes (Page 1 / Page 2) */
+  .cv-nav-group {
+    margin-top: 14px;
+  }
+
+  .cv-nav-group__title {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+    margin-bottom: 6px;
+  }
+
+  /* Liste numérotée, pastilles façon chapitres */
+  .cv-nav-list {
+    counter-reset: cv-nav;
+  }
+
+  .cv-nav-item {
+    counter-increment: cv-nav;
+  }
+
+  .cv-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 6px;
+    font-family: var(--f-body);
+    font-size: 16px;
+    color: var(--c-ink);
+    text-decoration: none;
+    border-radius: 8px;
+  }
+
+  .cv-nav-link::before {
+    content: counter(cv-nav);
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: 1.5px solid var(--c-line);
+    border-radius: 50%;
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--c-muted);
+  }
+
+  .cv-nav-link:active {
+    background: var(--c-tag-hl-bg);
+  }
+
+  /* Section en cours de lecture */
+  .cv-nav-link.is-current {
+    font-weight: 700;
+    background: var(--c-tag-hl-bg);
+  }
+
+  .cv-nav-link.is-current::before {
+    border-color: var(--c-terracotta);
+    color: var(--c-terracotta);
+    font-weight: 700;
+  }
+}
+
 /* Très petits écrans : on resserre encore un peu. */
 @media screen and (max-width: 420px) {
 
