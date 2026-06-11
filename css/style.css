@@ -232,16 +232,31 @@ body {
   color: var(--c-ink);
 }
 
+/* Le wrapper texte est transparent pour le layout : label et valeur
+   restent alignés sur une seule ligne comme avant. */
+.cv-contact__text {
+  display: contents;
+}
+
+/* Libellé d'action et chevron : réservés au rendu mobile. */
+.cv-contact__action,
+.cv-contact__chevron {
+  display: none;
+}
+
 /* Les coordonnées sont des liens cliquables (tel:, mailto:, profils) :
    même rendu que du texte, l'interaction reste discrète. */
-a.cv-contact__value {
+a.cv-contact__line {
   text-decoration: none;
+}
+
+a.cv-contact__line .cv-contact__value {
   border-bottom: 1px dotted transparent;
   transition: border-color 0.15s ease, color 0.15s ease;
 }
 
-a.cv-contact__value:hover,
-a.cv-contact__value:focus-visible {
+a.cv-contact__line:hover .cv-contact__value,
+a.cv-contact__line:focus-visible .cv-contact__value {
   color: var(--c-terracotta);
   border-bottom-color: var(--c-terracotta);
 }
@@ -942,14 +957,22 @@ a.cv-contact__value:focus-visible {
     max-width: none;
   }
 
+  /* --- Coordonnées : cartes tactiles ---
+     Chaque coordonnée devient une carte cliquable sur toute sa
+     largeur (zone tactile ≥ 44px), avec un libellé d'action
+     explicite (« Appeler », « Envoyer un email »…) et un chevron
+     qui signale l'interaction. */
   .cv-contact {
     text-align: left;
     padding-top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .cv-contact__line {
     font-size: 13px;
-    line-height: 1.9;
+    line-height: 1.5;
     justify-content: flex-start;
   }
 
@@ -958,10 +981,60 @@ a.cv-contact__value:focus-visible {
     min-width: 20px;
   }
 
-  /* Sur tactile, les liens de contact sont soulignés en pointillés
-     pour signaler qu'ils sont cliquables. */
-  a.cv-contact__value {
-    border-bottom-color: var(--c-line);
+  a.cv-contact__line {
+    align-items: center;
+    gap: 12px;
+    min-height: 52px;
+    padding: 8px 14px;
+    border: 1px solid var(--c-line);
+    border-radius: 8px;
+    background: rgba(43, 43, 40, 0.03);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Retour visuel au toucher */
+  a.cv-contact__line:active {
+    background: var(--c-tag-hl-bg);
+    border-color: var(--c-terracotta);
+  }
+
+  a.cv-contact__line .cv-contact__label {
+    min-width: 24px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  /* Libellé d'action au-dessus de la valeur */
+  .cv-contact__text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .cv-contact__action {
+    display: block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+
+  .cv-contact__chevron {
+    display: block;
+    margin-left: auto;
+    color: var(--c-terracotta);
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  /* Le soulignement pointillé n'a plus lieu d'être :
+     la carte elle-même est l'affordance. */
+  a.cv-contact__line .cv-contact__value {
+    border-bottom: none;
+    overflow-wrap: anywhere;
   }
 
   /* --- Corps : les deux colonnes s'empilent --- */

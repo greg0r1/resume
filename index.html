@@ -82,24 +82,46 @@
           <p class="cv-contact__line" data-ats-label="Localisation" data-ats-value="Saint-Laurent-du-Var, 06700, France">
             <span class="cv-contact__value">Saint-Laurent-du-Var · 06700</span>
           </p>
-          <p class="cv-contact__line" data-ats-label="Telephone" data-ats-value="06 52 68 63 08">
-            <span class="cv-contact__label">T</span>
-            <a class="cv-contact__value" href="tel:+33652686308">06 52 68 63 08</a>
-          </p>
-          <p class="cv-contact__line" data-ats-label="Email" data-ats-value="graphigreg@gmail.com">
-            <span class="cv-contact__label">@</span>
-            <a class="cv-contact__value" href="mailto:graphigreg@gmail.com">graphigreg@gmail.com</a>
-          </p>
-          <p class="cv-contact__line" data-ats-label="LinkedIn" data-ats-value="linkedin.com/in/gregory-dernaucourt">
-            <span class="cv-contact__label">in</span>
-            <a class="cv-contact__value" href="https://www.linkedin.com/in/gregory-dernaucourt" target="_blank"
-              rel="noopener">/gregory-dernaucourt</a>
-          </p>
-          <p class="cv-contact__line" data-ats-label="GitHub" data-ats-value="github.com/greg0r1">
-            <span class="cv-contact__label">gh</span>
-            <a class="cv-contact__value" href="https://github.com/greg0r1" target="_blank"
-              rel="noopener">github.com/greg0r1</a>
-          </p>
+          <!-- Chaque coordonnée est un lien sur toute la ligne : sur mobile,
+               la ligne devient une carte tactile avec un libellé d'action
+               explicite ; sur desktop/print, seul le couple label/valeur
+               est visible (rendu inchangé). -->
+          <a class="cv-contact__line" href="tel:+33652686308" data-ats-label="Telephone"
+            data-ats-value="06 52 68 63 08">
+            <span class="cv-contact__label" aria-hidden="true">T</span>
+            <span class="cv-contact__text">
+              <span class="cv-contact__action">Appeler</span>
+              <span class="cv-contact__value">06 52 68 63 08</span>
+            </span>
+            <span class="cv-contact__chevron" aria-hidden="true">›</span>
+          </a>
+          <a class="cv-contact__line" href="mailto:graphigreg@gmail.com" data-ats-label="Email"
+            data-ats-value="graphigreg@gmail.com">
+            <span class="cv-contact__label" aria-hidden="true">@</span>
+            <span class="cv-contact__text">
+              <span class="cv-contact__action">Envoyer un email</span>
+              <span class="cv-contact__value">graphigreg@gmail.com</span>
+            </span>
+            <span class="cv-contact__chevron" aria-hidden="true">›</span>
+          </a>
+          <a class="cv-contact__line" href="https://www.linkedin.com/in/gregory-dernaucourt" target="_blank"
+            rel="noopener" data-ats-label="LinkedIn" data-ats-value="linkedin.com/in/gregory-dernaucourt">
+            <span class="cv-contact__label" aria-hidden="true">in</span>
+            <span class="cv-contact__text">
+              <span class="cv-contact__action">Profil LinkedIn</span>
+              <span class="cv-contact__value">/gregory-dernaucourt</span>
+            </span>
+            <span class="cv-contact__chevron" aria-hidden="true">›</span>
+          </a>
+          <a class="cv-contact__line" href="https://github.com/greg0r1" target="_blank" rel="noopener"
+            data-ats-label="GitHub" data-ats-value="github.com/greg0r1">
+            <span class="cv-contact__label" aria-hidden="true">gh</span>
+            <span class="cv-contact__text">
+              <span class="cv-contact__action">Profil GitHub</span>
+              <span class="cv-contact__value">github.com/greg0r1</span>
+            </span>
+            <span class="cv-contact__chevron" aria-hidden="true">›</span>
+          </a>
         </address>
       </header>
 
