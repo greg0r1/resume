@@ -564,14 +564,16 @@
     if (!button) {
       return;
     }
-    if (!button.hasAttribute('data-original-label')) {
-      button.setAttribute('data-original-label', button.textContent);
+    // Le bouton contient une icône SVG + libellés : on mémorise le
+    // markup complet pour le restaurer après le feedback.
+    if (!button.hasAttribute('data-original-html')) {
+      button.setAttribute('data-original-html', button.innerHTML);
     }
     button.classList.add('is-copied');
     button.textContent = message;
     window.setTimeout(function () {
       button.classList.remove('is-copied');
-      button.textContent = button.getAttribute('data-original-label');
+      button.innerHTML = button.getAttribute('data-original-html');
     }, 2000);
   }
 
@@ -799,6 +801,55 @@
   }
 
   /* ----------------------------------------------------------------
+   * Toolbar escamotable (mobile)
+   * Sur smartphone, la barre d'actions se masque quand on défile
+   * vers le bas (lecture) et réapparaît dès qu'on remonte. Sur
+   * desktop elle reste fixe : le document a la place de respirer.
+   * ---------------------------------------------------------------- */
+
+  function initToolbarAutoHide() {
+    var toolbar = document.querySelector('.cv-toolbar');
+    if (!toolbar || typeof window.matchMedia !== 'function') {
+      return;
+    }
+
+    var mobileMQ = window.matchMedia('(max-width: 900px)');
+    var lastY = window.scrollY || 0;
+    var ticking = false;
+
+    function update() {
+      ticking = false;
+
+      if (!mobileMQ.matches) {
+        toolbar.classList.remove('cv-toolbar--hidden');
+        lastY = window.scrollY || 0;
+        return;
+      }
+
+      var y = window.scrollY || 0;
+      var delta = y - lastY;
+
+      // Près du haut de page : toujours visible.
+      if (y < 80) {
+        toolbar.classList.remove('cv-toolbar--hidden');
+      } else if (delta > 4) {
+        toolbar.classList.add('cv-toolbar--hidden');
+      } else if (delta < -4) {
+        toolbar.classList.remove('cv-toolbar--hidden');
+      }
+
+      lastY = y;
+    }
+
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    }, { passive: true });
+  }
+
+  /* ----------------------------------------------------------------
    * Initialisation
    * ---------------------------------------------------------------- */
 
@@ -808,10 +859,7 @@
     initShare();
     initSectionNav();
     initPageAnimation();
-    // Log discret.
-    if (window.console && typeof window.console.log === 'function') {
-      console.log('CV Grégory Dernaucourt — prêt');
-    }
+    initToolbarAutoHide();
   }
 
   if (document.readyState === 'loading') {

@@ -9,6 +9,9 @@
     content="CV de Grégory Dernaucourt, Développeur Angular / TypeScript. Interfaces performantes, code maintenable, architecture qui tient sous charge." />
   <meta name="theme-color" content="#2B2B28" />
 
+  <!-- Favicon : monogramme terracotta (évite aussi le 404 sur /favicon.ico) -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
   <!-- Open Graph : aperçu riche lors du partage (WhatsApp, LinkedIn, SMS…) -->
   <meta property="og:type" content="profile" />
   <meta property="og:title" content="Grégory Dernaucourt — Développeur Angular / TypeScript" />
@@ -38,21 +41,50 @@
        BARRE D'OUTILS (hors zone imprimable)
        Le bouton déclenche l'impression / export PDF via js/main.js
        ============================================================ -->
+  <!-- Chaque bouton porte une icône + deux libellés : le libellé complet
+       (desktop) et un libellé court (mobile, une seule ligne compacte).
+       La barre se masque au scroll vers le bas sur mobile (js/main.js). -->
   <div class="cv-toolbar" role="toolbar" aria-label="Actions du document">
     <button type="button" class="cv-print-btn" data-action="print" aria-label="Imprimer ou télécharger en PDF">
-      Imprimer / Télécharger PDF
+      <svg class="cv-print-btn__icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 4v11" />
+        <path d="m7 11 5 5 5-5" />
+        <path d="M5 20h14" />
+      </svg>
+      <span class="cv-print-btn__label">Imprimer / Télécharger PDF</span>
+      <span class="cv-print-btn__label-short" aria-hidden="true">PDF</span>
     </button>
     <button type="button" class="cv-print-btn cv-print-btn--ats" data-action="ats-pdf"
       aria-label="Exporter la version ATS en PDF">
-      Version ATS (PDF)
+      <svg class="cv-print-btn__icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V8z" />
+        <path d="M14 3v5h4.5" />
+      </svg>
+      <span class="cv-print-btn__label">Version ATS (PDF)</span>
+      <span class="cv-print-btn__label-short" aria-hidden="true">ATS PDF</span>
     </button>
     <button type="button" class="cv-print-btn cv-print-btn--ats" data-action="ats-txt"
       aria-label="Télécharger la version ATS en texte brut">
-      Version ATS (.txt)
+      <svg class="cv-print-btn__icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V8z" />
+        <path d="M14 3v5h4.5" />
+        <path d="M9 13h6" />
+        <path d="M9 17h6" />
+      </svg>
+      <span class="cv-print-btn__label">Version ATS (.txt)</span>
+      <span class="cv-print-btn__label-short" aria-hidden="true">ATS .txt</span>
     </button>
     <button type="button" class="cv-print-btn cv-print-btn--share" data-action="share"
       aria-label="Partager ce CV">
-      Partager
+      <svg class="cv-print-btn__icon" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="18" cy="5" r="2.5" />
+        <circle cx="6" cy="12" r="2.5" />
+        <circle cx="18" cy="19" r="2.5" />
+        <path d="m8.2 10.9 7.6-4.3" />
+        <path d="m8.2 13.1 7.6 4.3" />
+      </svg>
+      <span class="cv-print-btn__label">Partager</span>
+      <span class="cv-print-btn__label-short" aria-hidden="true">Partager</span>
     </button>
   </div>
 
@@ -82,24 +114,46 @@
           <p class="cv-contact__line" data-ats-label="Localisation" data-ats-value="Saint-Laurent-du-Var, 06700, France">
             <span class="cv-contact__value">Saint-Laurent-du-Var · 06700</span>
           </p>
-          <p class="cv-contact__line" data-ats-label="Telephone" data-ats-value="06 52 68 63 08">
-            <span class="cv-contact__label">T</span>
-            <a class="cv-contact__value" href="tel:+33652686308">06 52 68 63 08</a>
-          </p>
-          <p class="cv-contact__line" data-ats-label="Email" data-ats-value="graphigreg@gmail.com">
-            <span class="cv-contact__label">@</span>
-            <a class="cv-contact__value" href="mailto:graphigreg@gmail.com">graphigreg@gmail.com</a>
-          </p>
-          <p class="cv-contact__line" data-ats-label="LinkedIn" data-ats-value="linkedin.com/in/gregory-dernaucourt">
-            <span class="cv-contact__label">in</span>
-            <a class="cv-contact__value" href="https://www.linkedin.com/in/gregory-dernaucourt" target="_blank"
-              rel="noopener">/gregory-dernaucourt</a>
-          </p>
-          <p class="cv-contact__line" data-ats-label="GitHub" data-ats-value="github.com/greg0r1">
-            <span class="cv-contact__label">gh</span>
-            <a class="cv-contact__value" href="https://github.com/greg0r1" target="_blank"
-              rel="noopener">github.com/greg0r1</a>
-          </p>
+          <!-- Chaque coordonnée est un lien sur toute la ligne : sur mobile,
+               la ligne devient une carte tactile avec un libellé d'action
+               explicite ; sur desktop/print, seul le couple label/valeur
+               est visible (rendu inchangé). -->
+          <a class="cv-contact__line" href="tel:+33652686308" data-ats-label="Telephone"
+            data-ats-value="06 52 68 63 08">
+            <span class="cv-contact__label" aria-hidden="true">T</span>
+            <span class="cv-contact__text">
+              <span class="cv-contact__action">Appeler</span>
+              <span class="cv-contact__value">06 52 68 63 08</span>
+            </span>
+            <span class="cv-contact__chevron" aria-hidden="true">›</span>
+          </a>
+          <a class="cv-contact__line" href="mailto:graphigreg@gmail.com" data-ats-label="Email"
+            data-ats-value="graphigreg@gmail.com">
+            <span class="cv-contact__label" aria-hidden="true">@</span>
+            <span class="cv-contact__text">
+              <span class="cv-contact__action">Envoyer un email</span>
+              <span class="cv-contact__value">graphigreg@gmail.com</span>
+            </span>
+            <span class="cv-contact__chevron" aria-hidden="true">›</span>
+          </a>
+          <a class="cv-contact__line" href="https://www.linkedin.com/in/gregory-dernaucourt" target="_blank"
+            rel="noopener" data-ats-label="LinkedIn" data-ats-value="linkedin.com/in/gregory-dernaucourt">
+            <span class="cv-contact__label" aria-hidden="true">in</span>
+            <span class="cv-contact__text">
+              <span class="cv-contact__action">Profil LinkedIn</span>
+              <span class="cv-contact__value">/gregory-dernaucourt</span>
+            </span>
+            <span class="cv-contact__chevron" aria-hidden="true">›</span>
+          </a>
+          <a class="cv-contact__line" href="https://github.com/greg0r1" target="_blank" rel="noopener"
+            data-ats-label="GitHub" data-ats-value="github.com/greg0r1">
+            <span class="cv-contact__label" aria-hidden="true">gh</span>
+            <span class="cv-contact__text">
+              <span class="cv-contact__action">Profil GitHub</span>
+              <span class="cv-contact__value">github.com/greg0r1</span>
+            </span>
+            <span class="cv-contact__chevron" aria-hidden="true">›</span>
+          </a>
         </address>
       </header>
 
