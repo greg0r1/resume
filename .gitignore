@@ -1,0 +1,23 @@
+# Dépendances (au cas où un outil en ajoute)
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Système
+.DS_Store
+Thumbs.db
+
+# Éditeurs / IDE
+.vscode/
+.idea/
+*.swp
+
+# Exports générés (PDF / TXT téléchargés depuis le CV)
+*.pdf
+*.txt
+!README*.txt
+
+# Outils Claude
+.claude/

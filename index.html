@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grégory Dernaucourt — Développeur Angular / TypeScript</title>
+  <meta name="description"
+    content="CV de Grégory Dernaucourt, Développeur Angular / TypeScript. Interfaces performantes, code maintenable, architecture qui tient sous charge." />
+
+  <!-- ============================================================
+       GOOGLE FONTS
+       - Playfair Display : serif élégante (nom, titres)
+       - JetBrains Mono   : monospace (labels, coordonnées)
+       - Lora             : serif lisible (corps de texte)
+       ============================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600&family=JetBrains+Mono:wght@400;500;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
+    rel="stylesheet" />
+
+  <!-- Feuille de style externe (gérée par l'agent CSS) -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+  <!-- ============================================================
+       BARRE D'OUTILS (hors zone imprimable)
+       Le bouton déclenche l'impression / export PDF via js/main.js
+       ============================================================ -->
+  <div class="cv-toolbar" role="toolbar" aria-label="Actions du document">
+    <button type="button" class="cv-print-btn" data-action="print" aria-label="Imprimer ou télécharger en PDF">
+      Imprimer / Télécharger PDF
+    </button>
+    <button type="button" class="cv-print-btn cv-print-btn--ats" data-action="ats-pdf"
+      aria-label="Exporter la version ATS en PDF">
+      Version ATS (PDF)
+    </button>
+    <button type="button" class="cv-print-btn cv-print-btn--ats" data-action="ats-txt"
+      aria-label="Télécharger la version ATS en texte brut">
+      Version ATS (.txt)
+    </button>
+  </div>
+
+  <!-- ============================================================
+       DOCUMENT CV — conteneur racine
+       ============================================================ -->
+  <main class="cv-document">
+
+    <!-- ========================================================
+         PAGE 1
+         ======================================================== -->
+    <section class="cv-page" id="page-1" aria-label="Page 1 du CV">
+
+      <!-- ----- EN-TÊTE ----- -->
+      <header class="cv-header">
+        <div class="cv-header__identity">
+          <h1 class="cv-name">
+            <span class="cv-name__first">Grégory</span>
+            <span class="cv-name__last">Dernaucourt</span>
+          </h1>
+          <p class="cv-role">Développeur Angular / TypeScript</p>
+          <p class="cv-tagline">Interfaces performantes, code maintenable, architecture qui tient sous charge.</p>
+        </div>
+
+        <!-- Coordonnées (alignées à droite, monospace) -->
+        <address class="cv-contact">
+          <p class="cv-contact__line" data-ats-label="Localisation" data-ats-value="Saint-Laurent-du-Var, 06700, France">
+            <span class="cv-contact__value">Saint-Laurent-du-Var · 06700</span>
+          </p>
+          <p class="cv-contact__line" data-ats-label="Telephone" data-ats-value="06 52 68 63 08">
+            <span class="cv-contact__label">T</span>
+            <span class="cv-contact__value">06 52 68 63 08</span>
+          </p>
+          <p class="cv-contact__line" data-ats-label="Email" data-ats-value="graphigreg@gmail.com">
+            <span class="cv-contact__label">@</span>
+            <span class="cv-contact__value">graphigreg@gmail.com</span>
+          </p>
+          <p class="cv-contact__line" data-ats-label="LinkedIn" data-ats-value="linkedin.com/in/gregory-dernaucourt">
+            <span class="cv-contact__label">in</span>
+            <span class="cv-contact__value">/gregory-dernaucourt</span>
+          </p>
+          <p class="cv-contact__line" data-ats-label="GitHub" data-ats-value="github.com/greg0r1">
+            <span class="cv-contact__label">gh</span>
+            <span class="cv-contact__value">github.com/greg0r1</span>
+          </p>
+        </address>
+      </header>
+
+      <!-- ----- CORPS DEUX COLONNES ----- -->
+      <div class="cv-body">
+
+        <!-- ===== COLONNE PRINCIPALE (gauche) ===== -->
+        <div class="cv-main">
+
+          <!-- Résumé -->
+          <p class="cv-summary">
+            Développeur Angular/TypeScript, trois ans en production sur des applications critiques chez un éditeur SaaS.
+            Je conçois des front-ends rigoureux — Clean Architecture orientée domaine, principes SOLID, design patterns
+            et injection de dépendances — testables et taillés pour la charge. Maîtrise de l'état réactif (Signals,
+            RxJS). Je consolide aujourd'hui ces fondations vers une expertise full-stack.
+          </p>
+
+          <!-- ===== SECTION EXPÉRIENCE ===== -->
+          <section class="cv-section">
+            <h2 class="cv-section-title">Expérience</h2>
+
+            <!-- Poste : Développeur Front-End Angular -->
+            <article class="cv-job">
+              <header class="cv-job__header">
+                <h3 class="cv-job__title">Développeur Front-End Angular</h3>
+                <span class="cv-job__date">Oct. 2022 — Mai 2026</span>
+              </header>
+              <p class="cv-job__company">SEVEN PARK · Saint-Laurent-du-Var</p>
+              <p class="cv-job__desc">
+                Développement d'applications Angular/TypeScript haute-performance. Plateforme SaaS de supervision de
+                parkings en temps réel, dashboards financiers, intégration de flux vidéo LPR.
+              </p>
+
+              <!-- Encadrés statistiques -->
+              <div class="cv-stats">
+                <div class="cv-stat">
+                  <span class="cv-stat__value">3 ans<sup class="cv-stat__plus">+</sup></span>
+                  <span class="cv-stat__label">Angular en production</span>
+                </div>
+                <div class="cv-stat">
+                  <span class="cv-stat__value">1000<sup class="cv-stat__plus">+</sup></span>
+                  <span class="cv-stat__label">Installations en prod</span>
+                </div>
+              </div>
+
+              <!-- Liste à puces fléchées -->
+              <ul class="cv-bullets">
+                <li class="cv-bullet">SevenBox : plateforme SaaS de supervision de parkings en temps réel, déployée en
+                  production multi-sites.</li>
+                <li class="cv-bullet">Intégration vidéo LPR (reconnaissance de plaques) : flux RTSP/HTTP de caméras
+                  Dahua.</li>
+                <li class="cv-bullet">Dashboards financiers Chart.js · Clean Code (SOLID, modules découplés, testables)
+                  · lazy loading &amp; code splitting.</li>
+                <li class="cv-bullet">State management réactif (Signals, RxJS), composants standalone réutilisables et
+                  tests unitaires.</li>
+              </ul>
+
+              <!-- Ligne stack -->
+              <p class="cv-stack">
+                <span class="cv-stack__label">Stack</span>
+                <span class="cv-stack__value">Angular 17-19 (Signals, Standalone) · TypeScript strict · RxJS · Clean
+                  Architecture · SOLID · Docker · GitLab CI/CD · Chart.js · MQTT · API REST</span>
+              </p>
+            </article>
+          </section>
+
+          <!-- ===== EXPÉRIENCE PRÉCÉDENTE (auto-entrepreneur) ===== -->
+          <section class="cv-section">
+            <article class="cv-job">
+              <header class="cv-job__header">
+                <h3 class="cv-job__title">Développeur Web &amp; Infogérance</h3>
+                <span class="cv-job__date">Août 2018 — Oct. 2022</span>
+              </header>
+              <p class="cv-job__company">Auto-entrepreneur · Nice</p>
+              <p class="cv-job__desc">
+                Création, déploiement et maintenance de solutions web pour TPE/PME : 50+ sites WordPress &amp;
+                PrestaShop livrés (e-commerce, blogs, portfolios), administration et infogérance de VPS OVH,
+                optimisation SEO/SEM. +120 % de trafic organique moyen, 98 % de satisfaction client.
+              </p>
+            </article>
+          </section>
+
+        </div><!-- /.cv-main -->
+
+        <!-- ===== COLONNE LATÉRALE (droite) ===== -->
+        <aside class="cv-side">
+
+          <!-- FRONTEND -->
+          <section class="cv-side-block">
+            <h2 class="cv-side-title">Frontend</h2>
+            <ul class="cv-tags">
+              <li class="cv-tag cv-tag--highlight">Angular 17-19</li>
+              <li class="cv-tag">TypeScript</li>
+              <li class="cv-tag">RxJS</li>
+              <li class="cv-tag">Signals</li>
+              <li class="cv-tag">NgRx</li>
+              <li class="cv-tag">Chart.js</li>
+              <li class="cv-tag">HTML5 / CSS3</li>
+            </ul>
+          </section>
+
+          <!-- ARCHITECTURE & MÉTHODES -->
+          <section class="cv-side-block">
+            <h2 class="cv-side-title">Architecture &amp; méthodes</h2>
+            <ul class="cv-tags">
+              <li class="cv-tag">Clean Architecture</li>
+              <li class="cv-tag">SOLID</li>
+              <li class="cv-tag">Design Patterns</li>
+              <li class="cv-tag">TDD</li>
+              <li class="cv-tag">Agile / Scrum</li>
+            </ul>
+          </section>
+
+          <!-- INTÉGRATION & DEVOPS -->
+          <section class="cv-side-block">
+            <h2 class="cv-side-title">Intégration &amp; DevOps</h2>
+            <ul class="cv-tags">
+              <li class="cv-tag">Git / GitLab</li>
+              <li class="cv-tag">CI/CD</li>
+              <li class="cv-tag">Docker</li>
+              <li class="cv-tag">REST APIs</li>
+              <li class="cv-tag">MQTT</li>
+            </ul>
+          </section>
+
+          <!-- OUTILS -->
+          <section class="cv-side-block">
+            <h2 class="cv-side-title">Outils</h2>
+            <ul class="cv-tags">
+              <li class="cv-tag">VS Code</li>
+              <li class="cv-tag">GitHub Copilot</li>
+              <li class="cv-tag">Figma</li>
+            </ul>
+          </section>
+
+          <!-- FORMATION -->
+          <section class="cv-side-block">
+            <h2 class="cv-side-title">Formation</h2>
+            <ul class="cv-edu">
+              <li class="cv-edu-item">
+                <span class="cv-edu-item__title">Développeur Front-End</span>
+                <span class="cv-edu-item__meta">OpenClassrooms · Titre RNCP niv. 6 (Bac+3/4) · 2021—2022</span>
+              </li>
+              <li class="cv-edu-item">
+                <span class="cv-edu-item__title">Développeur Web Junior</span>
+                <span class="cv-edu-item__meta">OpenClassrooms · Titre RNCP niv. 5 (Bac+2) · 2019—2020</span>
+              </li>
+              <li class="cv-edu-item">
+                <span class="cv-edu-item__title">Webdesign</span>
+                <span class="cv-edu-item__meta">ITECOM Art Design · 2017—2018</span>
+              </li>
+            </ul>
+          </section>
+
+          <!-- LANGUES -->
+          <section class="cv-side-block">
+            <h2 class="cv-side-title">Langues</h2>
+            <ul class="cv-lang">
+              <li class="cv-lang-item">
+                <span class="cv-lang-item__name">Français</span>
+                <span class="cv-lang-item__level">Natif</span>
+              </li>
+              <li class="cv-lang-item">
+                <span class="cv-lang-item__name">Anglais</span>
+                <span class="cv-lang-item__level">Professionnel</span>
+              </li>
+            </ul>
+          </section>
+
+        </aside><!-- /.cv-side -->
+
+      </div><!-- /.cv-body -->
+
+    </section><!-- /#page-1 -->
+
+
+    <!-- ========================================================
+         PAGE 2
+         ======================================================== -->
+    <section class="cv-page" id="page-2" aria-label="Page 2 du CV">
+
+      <!-- ----- EN-TÊTE PAGE 2 ----- -->
+      <header class="cv-page2-header">
+        <h2 class="cv-section-title cv-section-title--page2">Parcours IT &amp; technique</h2>
+        <p class="cv-page2-subtitle">Un fil rouge : la technique au service de l'utilisateur. Du support terrain à
+          l'architecture Angular, chaque étape a appris à livrer un produit qui marche.</p>
+      </header>
+
+      <!-- ----- TIMELINE VERTICALE ----- -->
+      <ol class="cv-timeline">
+
+        <li class="cv-timeline-item">
+          <span class="cv-timeline-item__dot" aria-hidden="true"></span>
+          <div class="cv-timeline-item__content">
+            <span class="cv-timeline-item__date">Juin — Juil. 2018</span>
+            <h3 class="cv-timeline-item__title">Développeur Web Front-End · Stage</h3>
+            <p class="cv-timeline-item__company">BeeShary · Nice</p>
+            <p class="cv-timeline-item__desc">Intégration front-end HTML5/CSS3 responsive sur plateforme PrestaShop ·
+              customisation de templates selon maquettes UI/UX en contexte agile.</p>
+          </div>
+        </li>
+
+        <li class="cv-timeline-item">
+          <span class="cv-timeline-item__dot" aria-hidden="true"></span>
+          <div class="cv-timeline-item__content">
+            <span class="cv-timeline-item__date">2013 — 2017</span>
+            <h3 class="cv-timeline-item__title">Technicien Bureautique &amp; IT</h3>
+            <p class="cv-timeline-item__company">SAS APOJE LEASYS · Saint-Laurent-du-Var</p>
+            <p class="cv-timeline-item__desc">Responsable secteur Nice &amp; périphérie · parc de 50 clients (Ricoh,
+              Konica Minolta) · support, maintenance, formation, contrats SAV. 92 % de satisfaction client,
+              cross-selling +50K€/an.</p>
+          </div>
+        </li>
+
+        <li class="cv-timeline-item">
+          <span class="cv-timeline-item__dot" aria-hidden="true"></span>
+          <div class="cv-timeline-item__content">
+            <span class="cv-timeline-item__date">2012 — 2013</span>
+            <h3 class="cv-timeline-item__title">Conseiller Technique Hotline</h3>
+            <p class="cv-timeline-item__company">CCA International (SFR) · Monaco</p>
+            <p class="cv-timeline-item__desc">Support multi-services (internet, téléphonie, TV, mobile). 75 % de
+              résolution au 1er appel, 80 % NPS positif, 40-50 appels/jour.</p>
+          </div>
+        </li>
+
+        <li class="cv-timeline-item">
+          <span class="cv-timeline-item__dot" aria-hidden="true"></span>
+          <div class="cv-timeline-item__content">
+            <span class="cv-timeline-item__date">2008 — 2011</span>
+            <h3 class="cv-timeline-item__title">Spécialiste Assistance Informatique</h3>
+            <p class="cv-timeline-item__company">Lycée Jean Moulin · Draguignan</p>
+            <p class="cv-timeline-item__desc">Support IT clients finaux · gestion du site web de l'établissement.</p>
+          </div>
+        </li>
+
+        <li class="cv-timeline-item">
+          <span class="cv-timeline-item__dot" aria-hidden="true"></span>
+          <div class="cv-timeline-item__content">
+            <span class="cv-timeline-item__date">2004 — 2007</span>
+            <h3 class="cv-timeline-item__title">Spécialiste Informatique</h3>
+            <p class="cv-timeline-item__company">MVS Informatique · Draguignan</p>
+            <p class="cv-timeline-item__desc">Assistance postes client &amp; infrastructure réseau · assemblage et
+              réparation matériel · interventions à domicile.</p>
+          </div>
+        </li>
+
+        <li class="cv-timeline-item">
+          <span class="cv-timeline-item__dot" aria-hidden="true"></span>
+          <div class="cv-timeline-item__content">
+            <span class="cv-timeline-item__date">2002 — 2004</span>
+            <h3 class="cv-timeline-item__title">Superviseur Infographiste</h3>
+            <p class="cv-timeline-item__company">Automarché · Puget-sur-Argens</p>
+            <p class="cv-timeline-item__desc">Infographie d'édition (Publication Assistée par Ordinateur) ·
+              management d'équipe.</p>
+          </div>
+        </li>
+
+        <li class="cv-timeline-item">
+          <span class="cv-timeline-item__dot" aria-hidden="true"></span>
+          <div class="cv-timeline-item__content">
+            <span class="cv-timeline-item__date">1994 — 2001</span>
+            <h3 class="cv-timeline-item__title">Militaire Parachutiste &amp; Photographe Reporter</h3>
+            <p class="cv-timeline-item__company">Armée de Terre · Castres</p>
+            <p class="cv-timeline-item__desc">Service actif en unités parachutistes · photographe reporter terrain.
+              Valeurs forgées : rigueur, esprit d'équipe, gestion du stress.</p>
+          </div>
+        </li>
+
+      </ol><!-- /.cv-timeline -->
+
+      <!-- ----- TROIS COLONNES EN BAS ----- -->
+      <div class="cv-bottom-cols">
+
+        <!-- CERTIFICATIONS -->
+        <section class="cv-bottom-col">
+          <h2 class="cv-side-title">Certifications</h2>
+          <ul class="cv-chevron-list">
+            <li class="cv-chevron-item">Certification CodinGame — JavaScript</li>
+            <li class="cv-chevron-item">Certification CodinGame — PHP</li>
+            <li class="cv-chevron-item">HTML5 / CSS3 (OpenClassrooms)</li>
+            <li class="cv-chevron-item">CAP Réseaux &amp; Télécoms (MODE83)</li>
+            <li class="cv-chevron-item">CAP Infographie / PAO (FAGERH)</li>
+          </ul>
+        </section>
+
+        <!-- CENTRES D'INTÉRÊT -->
+        <section class="cv-bottom-col">
+          <h2 class="cv-side-title">Centres d'intérêt</h2>
+          <ul class="cv-chevron-list">
+            <li class="cv-chevron-item">Krav Maga — pratiquant, club KMCS</li>
+            <li class="cv-chevron-item">Veille tech &amp; projets perso</li>
+            <li class="cv-chevron-item">Open source — github.com/greg0r1</li>
+          </ul>
+        </section>
+
+        <!-- VISION -->
+        <section class="cv-bottom-col">
+          <h2 class="cv-side-title">Vision</h2>
+          <p class="cv-vision">
+            Évoluer vers une <strong class="cv-highlight">expertise full-stack</strong>, en combinant rigueur technique
+            et sens du produit. Ouvert aux opportunités <strong class="cv-highlight">SaaS B2B</strong> · <strong
+              class="cv-highlight">FinTech</strong> · <strong class="cv-highlight">GreenTech</strong> · <strong
+              class="cv-highlight">HealthTech</strong>.
+          </p>
+        </section>
+
+      </div><!-- /.cv-bottom-cols -->
+
+      <!-- ----- PIED DE PAGE ----- -->
+      <footer class="cv-footer">
+        <span class="cv-footer__name">Grégory Dernaucourt</span>
+        <span class="cv-footer__role">Développeur Angular / TypeScript · 2026</span>
+      </footer>
+
+    </section><!-- /#page-2 -->
+
+  </main><!-- /.cv-document -->
+
+  <!-- Script externe (géré par l'agent JS) -->
+  <script src="js/main.js" defer></script>
+
+</body>
+
+</html>
