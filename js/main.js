@@ -88,7 +88,7 @@
 
       // Les boutons ATS et Partager partagent la classe .cv-print-btn pour
       // le style, mais ne doivent PAS déclencher l'impression du CV stylisé.
-      if (trigger.matches('[data-action="ats-pdf"], [data-action="ats-txt"], [data-action="share"]')) {
+      if (trigger.matches('[data-action="ats-toggle"], [data-action="ats-pdf"], [data-action="ats-txt"], [data-action="share"]')) {
         return;
       }
 
@@ -537,17 +537,67 @@
   }
 
   function initAts() {
+    var toggle = document.querySelector('[data-action="ats-toggle"]');
+    var menu = document.getElementById('cv-ats-menu-list');
+
+    function closeMenu() {
+      if (!toggle || !menu) {
+        return;
+      }
+      menu.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    function openMenu() {
+      if (!toggle || !menu) {
+        return;
+      }
+      menu.classList.add('is-open');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+
     document.addEventListener('click', function (event) {
       var target = event.target;
       if (!target || typeof target.closest !== 'function') {
         return;
       }
+
+      if (target.closest('[data-action="ats-toggle"]')) {
+        event.preventDefault();
+        if (menu && menu.classList.contains('is-open')) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+        return;
+      }
+
       if (target.closest('[data-action="ats-pdf"]')) {
         event.preventDefault();
+        closeMenu();
         exportAtsPdf();
-      } else if (target.closest('[data-action="ats-txt"]')) {
+        return;
+      }
+
+      if (target.closest('[data-action="ats-txt"]')) {
         event.preventDefault();
+        closeMenu();
         exportAtsTxt();
+        return;
+      }
+
+      // Clic en dehors du menu : on referme.
+      if (menu && menu.classList.contains('is-open') && !target.closest('.cv-ats-menu')) {
+        closeMenu();
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && menu && menu.classList.contains('is-open')) {
+        closeMenu();
+        if (toggle) {
+          toggle.focus();
+        }
       }
     });
   }

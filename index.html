@@ -54,26 +54,39 @@
       <span class="cv-print-btn__label">Imprimer / Télécharger PDF</span>
       <span class="cv-print-btn__label-short" aria-hidden="true">PDF</span>
     </button>
-    <button type="button" class="cv-print-btn cv-print-btn--ats" data-action="ats-pdf"
-      aria-label="Exporter la version ATS en PDF">
-      <svg class="cv-print-btn__icon" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V8z" />
-        <path d="M14 3v5h4.5" />
-      </svg>
-      <span class="cv-print-btn__label">Version ATS (PDF)</span>
-      <span class="cv-print-btn__label-short" aria-hidden="true">ATS PDF</span>
-    </button>
-    <button type="button" class="cv-print-btn cv-print-btn--ats" data-action="ats-txt"
-      aria-label="Télécharger la version ATS en texte brut">
-      <svg class="cv-print-btn__icon" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V8z" />
-        <path d="M14 3v5h4.5" />
-        <path d="M9 13h6" />
-        <path d="M9 17h6" />
-      </svg>
-      <span class="cv-print-btn__label">Version ATS (.txt)</span>
-      <span class="cv-print-btn__label-short" aria-hidden="true">ATS .txt</span>
-    </button>
+    <div class="cv-ats-menu">
+      <button type="button" class="cv-print-btn cv-print-btn--ats" data-action="ats-toggle"
+        aria-haspopup="true" aria-expanded="false" aria-controls="cv-ats-menu-list"
+        aria-label="Versions ATS du CV">
+        <svg class="cv-print-btn__icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V8z" />
+          <path d="M14 3v5h4.5" />
+        </svg>
+        <span class="cv-print-btn__label">Versions ATS</span>
+        <span class="cv-print-btn__label-short" aria-hidden="true">ATS</span>
+        <svg class="cv-ats-menu__chevron" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </button>
+      <div class="cv-ats-menu__list" id="cv-ats-menu-list" role="menu" aria-label="Versions ATS">
+        <button type="button" class="cv-ats-menu__item" data-action="ats-pdf" role="menuitem">
+          <svg class="cv-print-btn__icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V8z" />
+            <path d="M14 3v5h4.5" />
+          </svg>
+          Version ATS (PDF)
+        </button>
+        <button type="button" class="cv-ats-menu__item" data-action="ats-txt" role="menuitem">
+          <svg class="cv-print-btn__icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V8z" />
+            <path d="M14 3v5h4.5" />
+            <path d="M9 13h6" />
+            <path d="M9 17h6" />
+          </svg>
+          Version ATS (.txt)
+        </button>
+      </div>
+    </div>
     <button type="button" class="cv-print-btn cv-print-btn--share" data-action="share"
       aria-label="Partager ce CV">
       <svg class="cv-print-btn__icon" viewBox="0 0 24 24" aria-hidden="true">
