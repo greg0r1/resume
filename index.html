@@ -9,6 +9,9 @@
     content="CV de Grégory Dernaucourt, Développeur Angular / TypeScript. Interfaces performantes, code maintenable, architecture qui tient sous charge." />
   <meta name="theme-color" content="#2B2B28" />
 
+  <!-- Favicon : monogramme terracotta (évite aussi le 404 sur /favicon.ico) -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
   <!-- Open Graph : aperçu riche lors du partage (WhatsApp, LinkedIn, SMS…) -->
   <meta property="og:type" content="profile" />
   <meta property="og:title" content="Grégory Dernaucourt — Développeur Angular / TypeScript" />
@@ -38,21 +41,50 @@
        BARRE D'OUTILS (hors zone imprimable)
        Le bouton déclenche l'impression / export PDF via js/main.js
        ============================================================ -->
+  <!-- Chaque bouton porte une icône + deux libellés : le libellé complet
+       (desktop) et un libellé court (mobile, une seule ligne compacte).
+       La barre se masque au scroll vers le bas sur mobile (js/main.js). -->
   <div class="cv-toolbar" role="toolbar" aria-label="Actions du document">
     <button type="button" class="cv-print-btn" data-action="print" aria-label="Imprimer ou télécharger en PDF">
-      Imprimer / Télécharger PDF
+      <svg class="cv-print-btn__icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 4v11" />
+        <path d="m7 11 5 5 5-5" />
+        <path d="M5 20h14" />
+      </svg>
+      <span class="cv-print-btn__label">Imprimer / Télécharger PDF</span>
+      <span class="cv-print-btn__label-short" aria-hidden="true">PDF</span>
     </button>
     <button type="button" class="cv-print-btn cv-print-btn--ats" data-action="ats-pdf"
       aria-label="Exporter la version ATS en PDF">
-      Version ATS (PDF)
+      <svg class="cv-print-btn__icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V8z" />
+        <path d="M14 3v5h4.5" />
+      </svg>
+      <span class="cv-print-btn__label">Version ATS (PDF)</span>
+      <span class="cv-print-btn__label-short" aria-hidden="true">ATS PDF</span>
     </button>
     <button type="button" class="cv-print-btn cv-print-btn--ats" data-action="ats-txt"
       aria-label="Télécharger la version ATS en texte brut">
-      Version ATS (.txt)
+      <svg class="cv-print-btn__icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V8z" />
+        <path d="M14 3v5h4.5" />
+        <path d="M9 13h6" />
+        <path d="M9 17h6" />
+      </svg>
+      <span class="cv-print-btn__label">Version ATS (.txt)</span>
+      <span class="cv-print-btn__label-short" aria-hidden="true">ATS .txt</span>
     </button>
     <button type="button" class="cv-print-btn cv-print-btn--share" data-action="share"
       aria-label="Partager ce CV">
-      Partager
+      <svg class="cv-print-btn__icon" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="18" cy="5" r="2.5" />
+        <circle cx="6" cy="12" r="2.5" />
+        <circle cx="18" cy="19" r="2.5" />
+        <path d="m8.2 10.9 7.6-4.3" />
+        <path d="m8.2 13.1 7.6 4.3" />
+      </svg>
+      <span class="cv-print-btn__label">Partager</span>
+      <span class="cv-print-btn__label-short" aria-hidden="true">Partager</span>
     </button>
   </div>
 
