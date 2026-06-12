@@ -851,6 +851,71 @@
   }
 
   /* ----------------------------------------------------------------
+   * 7. Lightbox photo de profil
+   *
+   * Clic sur le portrait de l'en-tête -> overlay plein écran avec la
+   * photo en grand. Fermeture via le bouton, le voile, Échap, ou en
+   * recliquant sur la photo.
+   * ---------------------------------------------------------------- */
+
+  function initPhotoLightbox() {
+    var trigger = document.querySelector('[data-action="photo-open"]');
+    var lightbox = document.getElementById('cv-photo-lightbox');
+    if (!trigger || !lightbox) {
+      return;
+    }
+
+    var isOpen = false;
+
+    function openLightbox() {
+      if (isOpen) {
+        return;
+      }
+      isOpen = true;
+      lightbox.classList.add('is-open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      var closeBtn = lightbox.querySelector('.cv-photo-lightbox__close');
+      if (closeBtn) {
+        closeBtn.focus();
+      }
+    }
+
+    function closeLightbox() {
+      if (!isOpen) {
+        return;
+      }
+      isOpen = false;
+      lightbox.classList.remove('is-open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      trigger.focus();
+    }
+
+    document.addEventListener('click', function (event) {
+      var target = event.target;
+      if (!target || typeof target.closest !== 'function') {
+        return;
+      }
+
+      if (target.closest('[data-action="photo-open"]')) {
+        event.preventDefault();
+        openLightbox();
+        return;
+      }
+
+      if (target.closest('[data-action="photo-close"]')) {
+        event.preventDefault();
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && isOpen) {
+        closeLightbox();
+      }
+    });
+  }
+
+  /* ----------------------------------------------------------------
    * Toolbar escamotable (mobile)
    * Sur smartphone, la barre d'actions se masque quand on défile
    * vers le bas (lecture) et réapparaît dès qu'on remonte. Sur
@@ -908,6 +973,7 @@
     initAts();
     initShare();
     initSectionNav();
+    initPhotoLightbox();
     initPageAnimation();
     initToolbarAutoHide();
   }

@@ -114,12 +114,20 @@
       <!-- ----- EN-TÊTE ----- -->
       <header class="cv-header" id="accueil" data-nav-label="Accueil">
         <div class="cv-header__identity">
-          <h1 class="cv-name">
-            <span class="cv-name__first">Grégory</span>
-            <span class="cv-name__last">Dernaucourt</span>
-          </h1>
-          <p class="cv-role">Développeur Angular / TypeScript</p>
-          <p class="cv-tagline">Interfaces performantes, code maintenable, architecture qui tient sous charge.</p>
+          <button type="button" class="cv-photo-btn" data-action="photo-open"
+            aria-haspopup="dialog" aria-controls="cv-photo-lightbox"
+            aria-label="Agrandir la photo de profil">
+            <img class="cv-photo" src="assets/images/profile-photo.jpeg"
+              alt="Portrait de Grégory Dernaucourt" width="72" height="72" />
+          </button>
+          <div class="cv-header__text">
+            <h1 class="cv-name">
+              <span class="cv-name__first">Grégory</span>
+              <span class="cv-name__last">Dernaucourt</span>
+            </h1>
+            <p class="cv-role">Développeur Angular / TypeScript</p>
+            <p class="cv-tagline">Interfaces performantes, code maintenable, architecture qui tient sous charge.</p>
+          </div>
         </div>
 
         <!-- Coordonnées (alignées à droite, monospace) -->
@@ -516,6 +524,21 @@
       <!-- Groupes et liens générés par js/main.js -->
     </div>
   </nav>
+
+  <!-- ============================================================
+       LIGHTBOX PHOTO DE PROFIL (hors zone imprimable)
+       Ouverte au clic sur le portrait de l'en-tête (js/main.js).
+       ============================================================ -->
+  <div class="cv-photo-lightbox" id="cv-photo-lightbox" role="dialog" aria-modal="true"
+    aria-label="Photo de profil en grand format" aria-hidden="true">
+    <div class="cv-photo-lightbox__backdrop" data-action="photo-close"></div>
+    <figure class="cv-photo-lightbox__content">
+      <img class="cv-photo-lightbox__img" src="assets/images/profile-photo.jpeg"
+        alt="Portrait de Grégory Dernaucourt" />
+      <button type="button" class="cv-photo-lightbox__close" data-action="photo-close"
+        aria-label="Fermer">&#10005;</button>
+    </figure>
+  </div>
 
   <!-- Script externe (géré par l'agent JS) -->
   <script src="js/main.js" defer></script>

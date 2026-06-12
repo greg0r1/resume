@@ -156,6 +156,45 @@ body {
 .cv-header__identity {
   flex: 1 1 auto;
   min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.cv-header__text {
+  min-width: 0;
+}
+
+/* Portrait : médaillon circulaire, liseré terracotta en écho à l'accent.
+   Le bouton englobant permet de l'agrandir dans une lightbox (js/main.js). */
+.cv-photo-btn {
+  flex: 0 0 auto;
+  display: block;
+  padding: 0;
+  border: none;
+  background: none;
+  border-radius: 50%;
+  cursor: zoom-in;
+  transition: transform 0.15s ease;
+}
+
+.cv-photo-btn:hover {
+  transform: scale(1.04);
+}
+
+.cv-photo-btn:focus-visible {
+  outline: 2px solid var(--c-terracotta);
+  outline-offset: 3px;
+}
+
+.cv-photo {
+  display: block;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--c-terracotta);
+  box-shadow: 0 0 0 3px var(--c-cream), 0 1px 4px rgba(43, 43, 40, 0.18);
 }
 
 .cv-name {
@@ -946,6 +985,11 @@ a.cv-contact__line:focus-visible .cv-contact__value {
     display: none !important;
   }
 
+  /* Masquer la lightbox photo (hors zone imprimable) */
+  .cv-photo-lightbox {
+    display: none !important;
+  }
+
   /* Supprimer espacements / ombres écran */
   .cv-document {
     gap: 0;
@@ -1057,6 +1101,11 @@ a.cv-contact__line:focus-visible .cv-contact__value {
     gap: 14px;
     padding-bottom: 16px;
     margin-bottom: 20px;
+  }
+
+  .cv-photo {
+    width: 56px;
+    height: 56px;
   }
 
   .cv-name {
@@ -1587,5 +1636,88 @@ html {
 
   .cv-stats {
     flex-direction: column;
+  }
+}
+
+/* ------------------------------------------------------------
+   22. LIGHTBOX PHOTO DE PROFIL (écran uniquement)
+   Overlay plein écran affichant le portrait en grand au clic.
+   ------------------------------------------------------------ */
+.cv-photo-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.cv-photo-lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.cv-photo-lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(43, 43, 40, 0.78);
+}
+
+.cv-photo-lightbox__content {
+  position: relative;
+  max-width: min(420px, 90vw);
+  max-height: 90vh;
+  margin: 0;
+}
+
+.cv-photo-lightbox__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 12px;
+  border: 3px solid var(--c-terracotta);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.45);
+}
+
+.cv-photo-lightbox__close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: var(--c-terracotta);
+  color: var(--c-cream);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(43, 43, 40, 0.35);
+  transition: transform 0.12s ease;
+}
+
+.cv-photo-lightbox__close:hover {
+  transform: scale(1.08);
+}
+
+.cv-photo-lightbox__close:focus-visible {
+  outline: 2px solid var(--c-cream);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cv-photo-lightbox {
+    transition: none;
   }
 }
