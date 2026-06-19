@@ -243,6 +243,33 @@ body {
   max-width: 320px;
 }
 
+/* Badge de disponibilité : pastille verte + libellé, repère immédiat
+   pour le recruteur sans avoir à chercher l'info dans le CV. */
+.cv-availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 4px 10px 4px 8px;
+  border: 1px solid #BFD8B8;
+  border-radius: 999px;
+  background: #E7F0E3;
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #3D6B33;
+}
+
+.cv-availability__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4C9A3A;
+  box-shadow: 0 0 0 2px rgba(76, 154, 58, 0.25);
+}
+
 /* Coordonnées (droite, monospace) */
 .cv-contact {
   text-align: right;
@@ -1124,6 +1151,12 @@ a.cv-contact__line:focus-visible .cv-contact__value {
   .cv-tagline {
     font-size: 15px;
     max-width: none;
+  }
+
+  .cv-availability {
+    margin-top: 12px;
+    font-size: 11px;
+    padding: 5px 12px 5px 9px;
   }
 
   /* --- Coordonnées : cartes tactiles ---

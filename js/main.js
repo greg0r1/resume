@@ -246,6 +246,16 @@
     model.name = atsSafe(cleanText(document.querySelector('.cv-name')));
     model.role = atsSafe(cleanText(document.querySelector('.cv-role')));
 
+    // Disponibilité : badge affiché sous l'accroche, ajouté en tête des contacts.
+    var availabilityEl = document.querySelector('.cv-availability');
+    if (availabilityEl) {
+      var availLabel = availabilityEl.getAttribute('data-ats-label');
+      var availValue = availabilityEl.getAttribute('data-ats-value');
+      if (availLabel && availValue) {
+        model.contact.push(atsSafe(availLabel) + ' : ' + atsSafe(availValue));
+      }
+    }
+
     // Contacts : libellé + valeur ATS via data-attributs.
     var contactLines = document.querySelectorAll('.cv-contact__line');
     Array.prototype.forEach.call(contactLines, function (line) {
