@@ -1060,6 +1060,63 @@
   }
 
   /* ----------------------------------------------------------------
+   * 8. Suivi GA4 (événements personnalisés)
+   *
+   * Cinq événements marqués comme « événements clés » dans GA4 :
+   * telecharger_pdf, clic_linkedin, clic_email, scroll_profond,
+   * temps_sur_page. On n'émet rien si gtag.js n'est pas chargé
+   * (bloqueur de pub, etc.) — chaque appel est gardé.
+   * ---------------------------------------------------------------- */
+
+  function trackEvent(name, params) {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', name, params);
+    }
+  }
+
+  function initAnalytics() {
+    document.addEventListener('click', function (event) {
+      var target = event.target;
+      if (!target || typeof target.closest !== 'function') {
+        return;
+      }
+
+      if (target.closest('[data-action="print"]')) {
+        trackEvent('telecharger_pdf', { file_name: 'CV-Gregory-Dernaucourt.pdf' });
+        return;
+      }
+
+      if (target.closest('a[href*="linkedin.com"]')) {
+        trackEvent('clic_linkedin');
+        return;
+      }
+
+      if (target.closest('a[href^="mailto:"]')) {
+        trackEvent('clic_email');
+      }
+    });
+
+    // Scroll profond (>= 75% de la page), déclenché une seule fois.
+    var scrollFired = false;
+    window.addEventListener('scroll', function () {
+      if (scrollFired) {
+        return;
+      }
+      var scrollable = document.body.scrollHeight - window.innerHeight;
+      var pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+      if (pct >= 75) {
+        scrollFired = true;
+        trackEvent('scroll_profond', { percent_scrolled: 75 });
+      }
+    }, { passive: true });
+
+    // Temps sur page (>= 2 minutes).
+    window.setTimeout(function () {
+      trackEvent('temps_sur_page', { engagement_time_seconds: 120 });
+    }, 120000);
+  }
+
+  /* ----------------------------------------------------------------
    * Initialisation
    * ---------------------------------------------------------------- */
 
@@ -1072,6 +1129,7 @@
     initPhotoLightbox();
     initPageAnimation();
     initToolbarAutoHide();
+    initAnalytics();
   }
 
   if (document.readyState === 'loading') {
