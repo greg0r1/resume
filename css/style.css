@@ -969,6 +969,23 @@ a.cv-contact__line:focus-visible .cv-contact__value {
   color: var(--c-terracotta);
 }
 
+/* Bouton vCard : télécharge la fiche contact (.vcf) en un clic. */
+.cv-print-btn--vcard {
+  background: transparent;
+  border: 1px solid var(--c-cream);
+  color: var(--c-cream);
+}
+
+.cv-print-btn--vcard:hover {
+  background: rgba(243, 238, 227, 0.14);
+}
+
+/* Feedback après téléchargement (posé par js/main.js). */
+.cv-print-btn--vcard.is-downloaded {
+  background: var(--c-cream);
+  color: var(--c-ink);
+}
+
 /* Bouton Partager : Web Share API sur mobile, copie du lien sinon. */
 .cv-print-btn--share {
   background: transparent;

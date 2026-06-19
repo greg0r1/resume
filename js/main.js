@@ -478,8 +478,8 @@
   }
 
   // Déclenche le téléchargement d'un fichier texte.
-  function downloadTextFile(filename, content) {
-    var blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+  function downloadTextFile(filename, content, mimeType) {
+    var blob = new Blob([content], { type: (mimeType || 'text/plain') + ';charset=utf-8' });
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url;
@@ -544,6 +544,91 @@
     var model = buildAtsModel();
     var slug = (model.name || 'cv').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
     downloadTextFile(slug + '-ats.txt', modelToText(model));
+  }
+
+  /* ----------------------------------------------------------------
+   * 4 bis. vCard (.vcf) — ajout direct au répertoire de contacts
+   *
+   * Lit les coordonnées déjà présentes dans le DOM (data-ats-value)
+   * pour ne pas dupliquer l'information ailleurs dans le code.
+   * ---------------------------------------------------------------- */
+
+  // Échappe les caractères spéciaux du format vCard (RFC 6350).
+  function vcardEscape(str) {
+    return String(str || '')
+      .replace(/\\/g, '\\\\')
+      .replace(/\n/g, '\\n')
+      .replace(/,/g, '\\,')
+      .replace(/;/g, '\\;');
+  }
+
+  function buildVcard() {
+    var nameEl = document.querySelector('.cv-name');
+    var firstName = cleanText(nameEl ? nameEl.querySelector('.cv-name__first') : null);
+    var lastName = cleanText(nameEl ? nameEl.querySelector('.cv-name__last') : null);
+    var role = cleanText(document.querySelector('.cv-role'));
+
+    var getContact = function (label) {
+      var line = document.querySelector('.cv-contact__line[data-ats-label="' + label + '"]');
+      return line ? line.getAttribute('data-ats-value') || '' : '';
+    };
+
+    var phone = getContact('Telephone').replace(/\s+/g, '');
+    var email = getContact('Email');
+    var linkedin = getContact('LinkedIn');
+    var github = getContact('GitHub');
+    var location = getContact('Localisation');
+
+    var lines = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      'N:' + vcardEscape(lastName) + ';' + vcardEscape(firstName) + ';;;',
+      'FN:' + vcardEscape((firstName + ' ' + lastName).trim()),
+      role ? 'TITLE:' + vcardEscape(role) : '',
+      phone ? 'TEL;TYPE=CELL:' + vcardEscape(phone) : '',
+      email ? 'EMAIL;TYPE=INTERNET:' + vcardEscape(email) : '',
+      location ? 'ADR;TYPE=HOME:;;' + vcardEscape(location) + ';;;;' : '',
+      linkedin ? 'URL;TYPE=LinkedIn:https://' + vcardEscape(linkedin) : '',
+      github ? 'URL;TYPE=GitHub:https://' + vcardEscape(github) : '',
+      'URL;TYPE=Website:' + window.location.href,
+      'END:VCARD'
+    ].filter(Boolean);
+
+    // CRLF imposé par la RFC 6350 (sinon Outlook/Contacts iOS ignorent le fichier).
+    return lines.join('\r\n') + '\r\n';
+  }
+
+  function exportVcard(button) {
+    var nameEl = document.querySelector('.cv-name');
+    var slug = cleanText(nameEl).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'contact';
+    downloadTextFile(slug + '.vcf', buildVcard(), 'text/vcard');
+
+    if (button) {
+      if (!button.hasAttribute('data-original-html')) {
+        button.setAttribute('data-original-html', button.innerHTML);
+      }
+      button.classList.add('is-downloaded');
+      button.textContent = 'Contact ajouté !';
+      window.setTimeout(function () {
+        button.classList.remove('is-downloaded');
+        button.innerHTML = button.getAttribute('data-original-html');
+      }, 2000);
+    }
+  }
+
+  function initVcard() {
+    document.addEventListener('click', function (event) {
+      var target = event.target;
+      if (!target || typeof target.closest !== 'function') {
+        return;
+      }
+      var trigger = target.closest('[data-action="vcard"]');
+      if (!trigger) {
+        return;
+      }
+      event.preventDefault();
+      exportVcard(trigger);
+    });
   }
 
   function initAts() {
@@ -981,6 +1066,7 @@
   function init() {
     initPrint();
     initAts();
+    initVcard();
     initShare();
     initSectionNav();
     initPhotoLightbox();
