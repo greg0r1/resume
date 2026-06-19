@@ -45,6 +45,59 @@
 
   <!-- Feuille de style externe (gérée par l'agent CSS) -->
   <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Balisage structuré schema.org/Person : aide Google à comprendre
+       l'identité de la page et à l'afficher en résultat enrichi (Knowledge
+       Panel) lors d'une recherche sur le nom de Grégory Dernaucourt. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Grégory Dernaucourt",
+    "givenName": "Grégory",
+    "familyName": "Dernaucourt",
+    "url": "https://greg0r1.github.io/resume/",
+    "image": "https://greg0r1.github.io/resume/assets/images/profile-photo.jpeg",
+    "jobTitle": "Développeur Angular / TypeScript",
+    "description": "Développeur Angular/TypeScript, trois ans en production sur des applications critiques chez un éditeur SaaS. Conception de front-ends Clean Architecture, SOLID, testables et taillés pour la charge.",
+    "telephone": "+33652686308",
+    "email": "mailto:graphigreg@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Saint-Laurent-du-Var",
+      "postalCode": "06700",
+      "addressCountry": "FR"
+    },
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Seven Park",
+      "address": "Saint-Laurent-du-Var, France"
+    },
+    "alumniOf": [
+      {
+        "@type": "EducationalOrganization",
+        "name": "OpenClassrooms"
+      },
+      {
+        "@type": "EducationalOrganization",
+        "name": "ITECOM Art Design"
+      }
+    ],
+    "knowsAbout": [
+      "Angular",
+      "TypeScript",
+      "RxJS",
+      "Clean Architecture",
+      "SOLID",
+      "Design Patterns"
+    ],
+    "knowsLanguage": ["fr", "en"],
+    "sameAs": [
+      "https://www.linkedin.com/in/gregory-dernaucourt",
+      "https://github.com/greg0r1"
+    ]
+  }
+  </script>
 </head>
 
 <body>
