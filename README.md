@@ -8,7 +8,7 @@ CV en ligne, imprimable et **compatible ATS** — HTML / CSS / JavaScript vanill
 
 <br />
 
-[![Voir le CV en ligne](https://img.shields.io/badge/▶_Voir_le_CV-greg0r1.github.io%2Fresume-C75B3D?style=for-the-badge)](https://greg0r1.github.io/resume/)
+[![Voir le CV en ligne](https://img.shields.io/badge/▶_Voir_le_CV-greg0r1.github.io%2Fresume-FF3DA6?style=for-the-badge)](https://greg0r1.github.io/resume/)
 
 <br />
 
@@ -25,7 +25,9 @@ CV en ligne, imprimable et **compatible ATS** — HTML / CSS / JavaScript vanill
 
 ## ✨ Fonctionnalités
 
-- 🎨 **Mise en page deux colonnes** soignée, pensée pour l'impression (A4, 2 pages).
+- 🎨 **Deux artefacts, une source** — à l'écran, une affiche en trois encres risographie
+  (bandes pleine largeur, portrait en bichromie, trame de points) ; à l'impression, une feuille
+  deux colonnes en **A4, exactement 2 pages**.
 - 📤 **Trois exports** depuis la barre d'outils :
 
   | Export | Description |
@@ -41,7 +43,7 @@ CV en ligne, imprimable et **compatible ATS** — HTML / CSS / JavaScript vanill
 
 ## 🤖 Pourquoi une version ATS ?
 
-Les **ATS** (*Applicant Tracking Systems*) lisent un PDF de gauche à droite, ligne par ligne. Une mise en page deux colonnes leur fait **mélanger les colonnes**, produisant un texte illisible.
+Les **ATS** (*Applicant Tracking Systems*) lisent un PDF de gauche à droite, ligne par ligne. La mise en page deux colonnes de la version imprimée leur ferait **mélanger les colonnes**, produisant un texte illisible.
 
 La version ATS reconstruit le contenu en **une seule colonne**, remplace les caractères décoratifs (`·`, `—`), désaccentue le texte et explicite les libellés de contact (`LinkedIn :`, `GitHub :`…).
 

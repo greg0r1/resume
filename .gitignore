@@ -21,3 +21,6 @@ Thumbs.db
 
 # Outils Claude
 .claude/
+
+# État de session des scripts Impeccable (pages de décision, config live)
+.impeccable/

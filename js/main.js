@@ -57,12 +57,22 @@
       sourceButton.setAttribute('aria-busy', 'true');
     }
 
+    // Le navigateur suggère le titre du document comme nom de fichier dans
+    // la boîte « Enregistrer au format PDF ». Le titre affiché (avec tiret
+    // cadratin et slash) donnerait un nom de fichier peu propre ; on le
+    // remplace le temps de l'impression par un nom court, puis on restaure.
+    var originalTitle = document.title;
+    var nameEl = document.querySelector('.cv-name');
+    var slug = slugifyName(cleanText(nameEl)) || 'CV';
+    document.title = 'CV-' + slug;
+
     // Nettoyage du feedback une fois la boîte d'impression refermée.
     var clearFeedback = function () {
       if (sourceButton) {
         sourceButton.classList.remove('is-printing');
         sourceButton.removeAttribute('aria-busy');
       }
+      document.title = originalTitle;
       window.removeEventListener('afterprint', clearFeedback);
     };
     window.addEventListener('afterprint', clearFeedback);
@@ -218,6 +228,14 @@
       .replace(/[ÀÂÄ]/g, 'A').replace(/[ÉÈÊË]/g, 'E')
       .replace(/[ÎÏ]/g, 'I').replace(/[ÔÖ]/g, 'O')
       .replace(/[ÙÛÜ]/g, 'U').replace(/Ç/g, 'C');
+  }
+
+  // Construit un nom de fichier propre à partir d'un nom affiché : accents et
+  // ponctuation retirés, mots séparés par des tirets. Utilisé pour le nom de
+  // fichier suggéré à l'export (PDF visuel, PDF ATS, .txt ATS, vCard).
+  function slugifyName(str) {
+    var clean = deburr(str || '').replace(/[^a-zA-Z0-9\s-]/g, '').trim();
+    return clean.split(/\s+/).filter(Boolean).join('-');
   }
 
   // Remplace les séparateurs/caractères décoratifs par des équivalents ATS.
@@ -470,8 +488,12 @@
       'p{margin-bottom:6px}ul{margin:0 0 8px 20px}li{margin-bottom:4px}' +
       '@media print{body{padding:0;max-width:none}}';
 
+    // Le titre du document iframe est le nom de fichier que certains
+    // navigateurs suggèrent à l'impression : mêmes règles que le PDF
+    // visuel (slug propre, pas le libellé humain avec ses parenthèses).
+    var slug = slugifyName(model.name) || 'CV';
     return '<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">' +
-      '<title>' + escapeHtml(model.name) + ' - CV (version ATS)</title>' +
+      '<title>' + escapeHtml('CV-' + slug + '-ATS') + '</title>' +
       '<style>' + css + '</style></head><body>' +
       parts.join('') +
       '</body></html>';
@@ -520,11 +542,26 @@
     doc.write(modelToHtml(model));
     doc.close();
 
+    // Le nom de fichier suggéré par la boîte « Enregistrer au format PDF »
+    // dépend du navigateur : certains lisent le titre du document imprimé
+    // (l'iframe, déjà propre), d'autres celui de l'onglet. On couvre les
+    // deux en changeant aussi, le temps de l'impression, le titre de la
+    // fenêtre principale — restauré par filet de sécurité, l'iframe étant
+    // détruite avant tout nouvel appel et l'événement afterprint n'étant
+    // pas garanti de remonter depuis une impression déclenchée par iframe.
+    var originalTitle = document.title;
+    var slug = slugifyName(model.name) || 'CV';
+    document.title = 'CV-' + slug + '-ATS';
+    window.setTimeout(function () {
+      document.title = originalTitle;
+    }, 4000);
+
     var printFrame = function () {
       try {
         iframe.contentWindow.focus();
         iframe.contentWindow.print();
       } catch (e) {
+        document.title = originalTitle;
         // Repli : si l'impression de l'iframe échoue, on télécharge le .txt.
         exportAtsTxt();
       }
@@ -542,7 +579,7 @@
 
   function exportAtsTxt() {
     var model = buildAtsModel();
-    var slug = (model.name || 'cv').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    var slug = (slugifyName(model.name) || 'cv').toLowerCase();
     downloadTextFile(slug + '-ats.txt', modelToText(model));
   }
 
@@ -600,7 +637,7 @@
 
   function exportVcard(button) {
     var nameEl = document.querySelector('.cv-name');
-    var slug = cleanText(nameEl).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'contact';
+    var slug = (slugifyName(cleanText(nameEl)) || 'contact').toLowerCase();
     downloadTextFile(slug + '.vcf', buildVcard(), 'text/vcard');
 
     if (button) {
@@ -960,13 +997,38 @@
       return;
     }
 
+    var toggleBtn = lightbox.querySelector('[data-action="photo-toggle-original"]');
+    var toggleLabel = toggleBtn ? toggleBtn.querySelector('.cv-photo-lightbox__toggle-label') : null;
     var isOpen = false;
+
+    // La bichromie est l'état par défaut à chaque ouverture : la bascule
+    // vers l'original ne doit pas « fuiter » d'une consultation à l'autre.
+    function resetToDuotone() {
+      lightbox.classList.remove('is-original');
+      if (toggleBtn) {
+        toggleBtn.setAttribute('aria-pressed', 'false');
+      }
+      if (toggleLabel) {
+        toggleLabel.textContent = "Photo d'origine";
+      }
+    }
+
+    function toggleOriginal() {
+      var showingOriginal = lightbox.classList.toggle('is-original');
+      if (toggleBtn) {
+        toggleBtn.setAttribute('aria-pressed', showingOriginal ? 'true' : 'false');
+      }
+      if (toggleLabel) {
+        toggleLabel.textContent = showingOriginal ? 'Version imprimée' : "Photo d'origine";
+      }
+    }
 
     function openLightbox() {
       if (isOpen) {
         return;
       }
       isOpen = true;
+      resetToDuotone();
       lightbox.classList.add('is-open');
       lightbox.setAttribute('aria-hidden', 'false');
       var closeBtn = lightbox.querySelector('.cv-photo-lightbox__close');
@@ -997,6 +1059,12 @@
         return;
       }
 
+      if (target.closest('[data-action="photo-toggle-original"]')) {
+        event.preventDefault();
+        toggleOriginal();
+        return;
+      }
+
       if (target.closest('[data-action="photo-close"]')) {
         event.preventDefault();
         closeLightbox();
@@ -1023,6 +1091,14 @@
       return;
     }
 
+    // Le bouton flottant du sommaire reste effacé tant qu'on n'a pas quitté
+    // le premier écran : en haut de page il recouvrait le premier pavé
+    // d'appel. Guard : s'il n'existe pas, tout le reste continue de marcher.
+    var fab = document.querySelector('.cv-nav-fab');
+    if (fab) {
+      fab.classList.add('cv-nav-fab--idle');
+    }
+
     var mobileMQ = window.matchMedia('(max-width: 900px)');
     var lastY = window.scrollY || 0;
     var ticking = false;
@@ -1030,13 +1106,22 @@
     function update() {
       ticking = false;
 
+      var y = window.scrollY || 0;
+
+      if (fab) {
+        if (y > 120) {
+          fab.classList.remove('cv-nav-fab--idle');
+        } else {
+          fab.classList.add('cv-nav-fab--idle');
+        }
+      }
+
       if (!mobileMQ.matches) {
         toolbar.classList.remove('cv-toolbar--hidden');
-        lastY = window.scrollY || 0;
+        lastY = y;
         return;
       }
 
-      var y = window.scrollY || 0;
       var delta = y - lastY;
 
       // Près du haut de page : toujours visible.
@@ -1050,6 +1135,9 @@
 
       lastY = y;
     }
+
+    // Position initiale : le visiteur peut arriver sur une ancre.
+    update();
 
     window.addEventListener('scroll', function () {
       if (!ticking) {
