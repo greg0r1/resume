@@ -16,9 +16,9 @@
   <title>Grégory Dernaucourt — Développeur Angular / TypeScript</title>
   <meta name="description"
     content="CV de Grégory Dernaucourt, Développeur Angular / TypeScript. Interfaces performantes, code maintenable, architecture qui tient sous charge." />
-  <meta name="theme-color" content="#2B2B28" />
+  <meta name="theme-color" content="#FFF3E2" />
 
-  <!-- Favicon : monogramme « G. » anthracite/crème/terracotta (évite aussi le 404 sur /favicon.ico) -->
+  <!-- Favicon : monogramme « G. » rose fluo / bleu fédéral sur papier (évite aussi le 404 sur /favicon.ico) -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
@@ -32,15 +32,15 @@
   <meta property="og:locale" content="fr_FR" />
 
   <!-- ============================================================
-       GOOGLE FONTS
-       - Playfair Display : serif élégante (nom, titres)
-       - JetBrains Mono   : monospace (labels, coordonnées)
-       - Lora             : serif lisible (corps de texte)
+       POLICE — une seule famille, une seule requête.
+       Archivo variable : axes wght (100-900) et wdth (62-125).
+       L'axe de largeur porte les trois registres de l'affiche :
+       display condensé 900/62, libellés tracés 700/100, corps 400/100.
        ============================================================ -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600&family=JetBrains+Mono:wght@400;500;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap"
     rel="stylesheet" />
 
   <!-- Feuille de style externe (gérée par l'agent CSS) -->
@@ -101,6 +101,27 @@
 </head>
 
 <body>
+
+  <!-- ============================================================
+       FILTRES SVG — bichromie risographie du portrait.
+       feColorMatrix passe l'image en niveaux de gris, puis
+       feComponentTransfer mappe les ombres sur le bleu fédéral
+       (#2A5BFF) et les hautes lumières sur le rose fluo (#FF3DA6).
+       Aucun asset supplémentaire : la photo d'origine est intacte.
+       ============================================================ -->
+  <svg class="riso-defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <filter id="riso-duotone" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="0.299 0.587 0.114 0 0
+                                           0.299 0.587 0.114 0 0
+                                           0.299 0.587 0.114 0 0
+                                           0     0     0     1 0" />
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="0.16 1" />
+        <feFuncG type="table" tableValues="0.36 0.24" />
+        <feFuncB type="table" tableValues="1 0.65" />
+      </feComponentTransfer>
+    </filter>
+  </svg>
 
   <!-- ============================================================
        BARRE D'OUTILS (hors zone imprimable)
@@ -195,7 +216,7 @@
             aria-haspopup="dialog" aria-controls="cv-photo-lightbox"
             aria-label="Agrandir la photo de profil">
             <img class="cv-photo" src="assets/images/profile-photo.jpeg"
-              alt="Portrait de Grégory Dernaucourt" width="72" height="72" />
+              alt="Portrait de Grégory Dernaucourt" width="864" height="1184" />
           </button>
           <div class="cv-header__text">
             <h1 class="cv-name">
@@ -211,7 +232,23 @@
           </div>
         </div>
 
-        <!-- Coordonnées (alignées à droite, monospace) -->
+        <!-- Chiffres de preuve, remontés dans l'en-tête : un recruteur qui
+             trie en dix secondes doit avoir une raison de continuer avant la
+             ligne de flottaison. Le générateur ATS ne lit jamais .cv-stat (il
+             n'extrait d'un .cv-job que titre, dates, société, description,
+             puces et stack) : ce déplacement est neutre pour les exports. -->
+        <div class="cv-stats">
+          <div class="cv-stat">
+            <span class="cv-stat__value">3 ans<sup class="cv-stat__plus">+</sup></span>
+            <span class="cv-stat__label">Angular en production</span>
+          </div>
+          <div class="cv-stat">
+            <span class="cv-stat__value">1000<sup class="cv-stat__plus">+</sup></span>
+            <span class="cv-stat__label">Installations en prod</span>
+          </div>
+        </div>
+
+        <!-- Coordonnées : cinq pavés bordés, quatre d'entre eux cliquables -->
         <address class="cv-contact">
           <p class="cv-contact__line" data-ats-label="Localisation" data-ats-value="Saint-Laurent-du-Var, 06700, France">
             <span class="cv-contact__value">Saint-Laurent-du-Var · 06700</span>
@@ -288,18 +325,6 @@
                 Développement d'applications Angular/TypeScript haute-performance. Plateforme SaaS de supervision de
                 parkings en temps réel, dashboards financiers, intégration de flux vidéo LPR.
               </p>
-
-              <!-- Encadrés statistiques -->
-              <div class="cv-stats">
-                <div class="cv-stat">
-                  <span class="cv-stat__value">3 ans<sup class="cv-stat__plus">+</sup></span>
-                  <span class="cv-stat__label">Angular en production</span>
-                </div>
-                <div class="cv-stat">
-                  <span class="cv-stat__value">1000<sup class="cv-stat__plus">+</sup></span>
-                  <span class="cv-stat__label">Installations en prod</span>
-                </div>
-              </div>
 
               <!-- Liste à puces fléchées -->
               <ul class="cv-bullets">
@@ -616,6 +641,17 @@
     <figure class="cv-photo-lightbox__content">
       <img class="cv-photo-lightbox__img" src="assets/images/profile-photo.jpeg"
         alt="Portrait de Grégory Dernaucourt" />
+      <!-- Bascule discrète : la bichromie est la signature du site, mais la
+           photo d'origine reste consultable à la demande. Style pavé bordé,
+           même vocabulaire que le bouton de fermeture. -->
+      <button type="button" class="cv-photo-lightbox__toggle" data-action="photo-toggle-original"
+        aria-pressed="false">
+        <svg class="cv-photo-lightbox__toggle-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="3.2" />
+          <path d="M2.5 12c1.9-4.3 5.6-7 9.5-7s7.6 2.7 9.5 7c-1.9 4.3-5.6 7-9.5 7s-7.6-2.7-9.5-7Z" />
+        </svg>
+        <span class="cv-photo-lightbox__toggle-label">Photo d'origine</span>
+      </button>
       <button type="button" class="cv-photo-lightbox__close" data-action="photo-close"
         aria-label="Fermer">&#10005;</button>
     </figure>

@@ -1,9 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- Monogramme « G. » — palette du CV : anthracite / crème / terracotta -->
-  <rect width="64" height="64" rx="14" fill="#2B2B28"/>
-  <rect x="4.5" y="4.5" width="55" height="55" rx="10.5" fill="none" stroke="#F3EEE3" stroke-opacity=".22" stroke-width="1.5"/>
+  <!-- Monogramme « G. » — palette risographie : papier / bleu fédéral / rose fluo.
+       Le G est imprimé deux fois, décalé : le défaut de repérage de la riso. -->
+  <rect width="64" height="64" fill="#FFF3E2"/>
+  <rect x="2" y="2" width="60" height="60" fill="none" stroke="#16225E" stroke-width="4"/>
   <path d="M37.2 23.8 A13 13 0 1 0 41 33 L32.5 33"
-        fill="none" stroke="#F3EEE3" stroke-width="5.5"
-        stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="47.5" cy="43.3" r="4.2" fill="#C0573B"/>
+        fill="none" stroke="#FF3DA6" stroke-width="6"
+        stroke-linecap="square" stroke-linejoin="miter"
+        transform="translate(2.6 2.6)"/>
+  <path d="M37.2 23.8 A13 13 0 1 0 41 33 L32.5 33"
+        fill="none" stroke="#2A5BFF" stroke-width="6"
+        stroke-linecap="square" stroke-linejoin="miter"/>
+  <rect x="45" y="40" width="7" height="7" fill="#FFD100" stroke="#16225E" stroke-width="2"/>
 </svg>
