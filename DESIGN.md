@@ -171,9 +171,22 @@ Ces règles priment sur toute décision visuelle.
 - **Pas de numéros de section sur papier.** En deux colonnes, la colonne latérale afficherait
   02 au-dessus du 01 de la colonne principale. Le catalogue numéroté est une figure d'écran, où
   l'ordre de lecture est linéaire.
-- **Bichromie conservée à l'impression.** Le PDF est le format le plus partagé de ce CV ; le
-  portrait en deux encres y reste la signature. Sur imprimante noir et blanc, le filtre se
-  dégrade en niveaux de gris lisibles.
+- **Photo d'origine à l'impression, bichromie à l'écran.** Décision révisée après le premier
+  build : sur un document que le recruteur imprime ou joint à un dossier, un portrait
+  reconnaissable prime sur la signature décorative. `.cv-photo` passe donc `filter: none` en
+  `@media print`. La bichromie riso reste la valeur par défaut à l'écran, avec une bascule
+  discrète dans la lightbox (`data-action="photo-toggle-original"`) pour qui veut voir l'original
+  sans imprimer — l'état ne doit jamais persister d'une ouverture à l'autre.
+- **Lien vers le site en ligne dans le pied de page, réservé au PDF.** `.cv-footer__link` est en
+  `display: none` par défaut : sur la page en ligne elle-même, un lien qui pointe vers la page
+  qu'on est déjà en train de lire n'a pas de raison d'être. Il ne réapparaît (`inline-flex`) que
+  dans `@media print`, où il rend la version en ligne retrouvable depuis un document imprimé ou
+  transféré. Il hérite `color: inherit` plutôt qu'une couleur propre — encre sur papier à
+  l'impression, seul média où il existe — pour rester cohérent si l'écran venait un jour à le
+  réafficher. À l'impression, le pied de page passe en `flex-wrap` et le lien prend
+  `flex-basis: 100%` pour tomber sur sa propre ligne sous nom/rôle plutôt que s'intercaler entre
+  eux — et la marge du pied de feuille 2 a dû être rognée de 5 à 3,5 mm pour absorber cette
+  troisième ligne sans repousser le contenu en 3ᵉ page.
 - **Les chiffres de preuve vivent dans l'en-tête, pas dans le poste.** `.cv-stats` a été sorti de
   `.cv-job` : un recruteur qui trie en dix secondes doit avoir une raison de continuer avant la
   ligne de flottaison. Le déplacement est neutre pour les exports — `buildAtsModel` n'extrait d'un

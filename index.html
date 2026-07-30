@@ -593,6 +593,15 @@
       <footer class="cv-footer">
         <span class="cv-footer__name">Grégory Dernaucourt</span>
         <span class="cv-footer__role">Développeur Angular / TypeScript · 2026</span>
+        <!-- Lien vers le site en ligne : réservé au PDF (masqué à l'écran par
+             .cv-footer__link { display: none }, réaffiché uniquement dans
+             @media print — voir DESIGN.md). Sur la page en ligne elle-même,
+             un lien qui pointe vers la page qu'on est déjà en train de lire
+             n'a pas de raison d'être. -->
+        <a class="cv-footer__link" href="https://greg0r1.github.io/resume/" target="_blank" rel="noopener">
+          greg0r1.github.io/resume
+          <span class="cv-footer__link-arrow" aria-hidden="true">↗</span>
+        </a>
       </footer>
 
     </section><!-- /#page-2 -->

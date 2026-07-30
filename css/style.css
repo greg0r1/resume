@@ -1184,6 +1184,44 @@ a.cv-contact__line:hover {
   color: var(--paper);
 }
 
+/* Lien vers le site : réservé au PDF (voir @media print). Sur le site en
+   ligne lui-même, un lien qui pointe vers la page qu'on est déjà en train
+   de lire n'a pas de raison d'être ; masqué en display:none, réaffiché
+   uniquement à l'impression. Registre accent (comme .cv-contact__value),
+   souligné en rose pour rester un lien même sans couleur de texte dédiée —
+   la couleur du texte hérite de .cv-footer (papier à l'écran, encre à
+   l'impression), ce qui évite de recalculer un contraste par média. */
+.cv-footer__link {
+  display: none;
+  align-items: center;
+  gap: 0.35em;
+  width: fit-content;
+  color: inherit;
+  font-size: 0.74rem;
+  font-weight: 600;
+  font-stretch: 87%;
+  text-decoration: underline;
+  text-decoration-color: var(--rose);
+  text-underline-offset: 0.22em;
+  transition: color 0.12s ease, text-decoration-color 0.12s ease;
+}
+
+.cv-footer__link:hover,
+.cv-footer__link:focus-visible {
+  color: var(--jaune);
+  text-decoration-color: var(--jaune);
+}
+
+.cv-footer__link-arrow {
+  font-size: 0.9em;
+  color: var(--rose);
+}
+
+.cv-footer__link:hover .cv-footer__link-arrow,
+.cv-footer__link:focus-visible .cv-footer__link-arrow {
+  color: var(--jaune);
+}
+
 /* ------------------------------------------------------------
    15. SOMMAIRE MOBILE — bouton flottant + panneau
    ------------------------------------------------------------ */
@@ -2104,15 +2142,28 @@ a.cv-contact__line:hover {
   }
 
   /* --- Pied de feuille --- */
+  /* flex-wrap + le lien en flex-basis 100% : nom et rôle restent sur la
+     ligne de base habituelle (gauche / droite), le lien passe seul sur la
+     ligne suivante, aligné à droite sous le rôle. */
   .cv-footer {
     display: flex;
+    flex-wrap: wrap;
     align-items: baseline;
     justify-content: space-between;
-    gap: 4mm;
+    gap: 0 4mm;
     padding-block: 2mm 0;
     margin-top: 4mm;
     background: none;
     border-top: 1.2px solid var(--ink);
+  }
+
+  /* Réaffiché uniquement ici : c'est l'artefact PDF qui en a besoin,
+     pas la page en ligne (voir la règle display:none de base). */
+  .cv-footer__link {
+    display: inline-flex;
+    flex: 1 0 100%;
+    justify-content: flex-end;
+    margin-top: 0.4mm;
   }
 
   .cv-footer__name {
@@ -2123,6 +2174,16 @@ a.cv-contact__line:hover {
   .cv-footer__role {
     font-size: 7.4px;
     color: var(--ink);
+  }
+
+  .cv-footer__link {
+    font-size: 7.4px;
+    color: var(--ink);
+    text-decoration-color: var(--rose);
+  }
+
+  .cv-footer__link-arrow {
+    color: var(--rose);
   }
 
   /* ------------------------------------------------------------------
@@ -2346,7 +2407,9 @@ a.cv-contact__line:hover {
   }
 
   #page-2 .cv-footer {
-    margin-top: 5mm;
+    /* Rogné de 5 à 3,5mm : la troisième ligne (lien) que ce pied de page a
+       gagnée doit tenir dans la feuille sans repousser le reste en 3e page. */
+    margin-top: 3.5mm;
     padding-top: 2.5mm;
   }
 
