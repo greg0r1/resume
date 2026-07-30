@@ -1184,12 +1184,15 @@ a.cv-contact__line:hover {
   color: var(--paper);
 }
 
-/* Lien vers le site : registre accent (comme .cv-contact__value), souligné
-   en rose pour rester un lien même sans couleur de texte dédiée — la couleur
-   du texte hérite de .cv-footer (papier à l'écran, encre à l'impression),
-   ce qui évite de recalculer un contraste par média. */
+/* Lien vers le site : réservé au PDF (voir @media print). Sur le site en
+   ligne lui-même, un lien qui pointe vers la page qu'on est déjà en train
+   de lire n'a pas de raison d'être ; masqué en display:none, réaffiché
+   uniquement à l'impression. Registre accent (comme .cv-contact__value),
+   souligné en rose pour rester un lien même sans couleur de texte dédiée —
+   la couleur du texte hérite de .cv-footer (papier à l'écran, encre à
+   l'impression), ce qui évite de recalculer un contraste par média. */
 .cv-footer__link {
-  display: inline-flex;
+  display: none;
   align-items: center;
   gap: 0.35em;
   width: fit-content;
@@ -2154,7 +2157,10 @@ a.cv-contact__line:hover {
     border-top: 1.2px solid var(--ink);
   }
 
+  /* Réaffiché uniquement ici : c'est l'artefact PDF qui en a besoin,
+     pas la page en ligne (voir la règle display:none de base). */
   .cv-footer__link {
+    display: inline-flex;
     flex: 1 0 100%;
     justify-content: flex-end;
     margin-top: 0.4mm;

@@ -177,11 +177,13 @@ Ces règles priment sur toute décision visuelle.
   `@media print`. La bichromie riso reste la valeur par défaut à l'écran, avec une bascule
   discrète dans la lightbox (`data-action="photo-toggle-original"`) pour qui veut voir l'original
   sans imprimer — l'état ne doit jamais persister d'une ouverture à l'autre.
-- **Lien vers le site en ligne dans le pied de page, sur les deux médias.** `.cv-footer__link`
-  hérite `color: inherit` plutôt qu'une couleur propre : papier à l'écran (fond encre), encre à
-  l'impression (fond blanc), sans recalculer un contraste par média. Seul le soulignement et la
-  flèche restent en rose de repérage, un accent décoratif non soumis aux mêmes seuils que le
-  texte. À l'impression, le pied de page passe en `flex-wrap` et le lien prend
+- **Lien vers le site en ligne dans le pied de page, réservé au PDF.** `.cv-footer__link` est en
+  `display: none` par défaut : sur la page en ligne elle-même, un lien qui pointe vers la page
+  qu'on est déjà en train de lire n'a pas de raison d'être. Il ne réapparaît (`inline-flex`) que
+  dans `@media print`, où il rend la version en ligne retrouvable depuis un document imprimé ou
+  transféré. Il hérite `color: inherit` plutôt qu'une couleur propre — encre sur papier à
+  l'impression, seul média où il existe — pour rester cohérent si l'écran venait un jour à le
+  réafficher. À l'impression, le pied de page passe en `flex-wrap` et le lien prend
   `flex-basis: 100%` pour tomber sur sa propre ligne sous nom/rôle plutôt que s'intercaler entre
   eux — et la marge du pied de feuille 2 a dû être rognée de 5 à 3,5 mm pour absorber cette
   troisième ligne sans repousser le contenu en 3ᵉ page.
