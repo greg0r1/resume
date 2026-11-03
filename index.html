@@ -59,7 +59,7 @@
     "url": "https://greg0r1.github.io/resume/",
     "image": "https://greg0r1.github.io/resume/assets/images/profile-photo.jpeg",
     "jobTitle": "Développeur Angular / TypeScript",
-    "description": "Développeur Angular/TypeScript, trois ans en production sur des applications critiques chez un éditeur SaaS. Conception de front-ends Clean Architecture, SOLID, testables et taillés pour la charge.",
+    "description": "Développeur Angular/TypeScript, trois ans en production sur des applications temps réel pour des systèmes de parking. Conception de front-ends Clean Architecture, SOLID, testables et taillés pour la charge.",
     "telephone": "+33652686308",
     "email": "mailto:graphigreg@gmail.com",
     "address": {
@@ -101,27 +101,6 @@
 </head>
 
 <body>
-
-  <!-- ============================================================
-       FILTRES SVG — bichromie risographie du portrait.
-       feColorMatrix passe l'image en niveaux de gris, puis
-       feComponentTransfer mappe les ombres sur le bleu fédéral
-       (#2A5BFF) et les hautes lumières sur le rose fluo (#FF3DA6).
-       Aucun asset supplémentaire : la photo d'origine est intacte.
-       ============================================================ -->
-  <svg class="riso-defs" width="0" height="0" aria-hidden="true" focusable="false">
-    <filter id="riso-duotone" color-interpolation-filters="sRGB">
-      <feColorMatrix type="matrix" values="0.299 0.587 0.114 0 0
-                                           0.299 0.587 0.114 0 0
-                                           0.299 0.587 0.114 0 0
-                                           0     0     0     1 0" />
-      <feComponentTransfer>
-        <feFuncR type="table" tableValues="0.16 1" />
-        <feFuncG type="table" tableValues="0.36 0.24" />
-        <feFuncB type="table" tableValues="1 0.65" />
-      </feComponentTransfer>
-    </filter>
-  </svg>
 
   <!-- ============================================================
        BARRE D'OUTILS (hors zone imprimable)
@@ -304,12 +283,13 @@
 
           <!-- Résumé -->
           <p class="cv-summary" id="profil" data-nav-label="Profil">
-            Développeur Angular/TypeScript, trois ans en production sur des applications critiques chez un éditeur SaaS.
-            Je conçois des front-ends rigoureux — Clean Architecture orientée domaine, principes SOLID, design patterns
-            et injection de dépendances — testables et taillés pour la charge. Maîtrise de l'état réactif (Signals,
-            RxJS). J'intègre l'IA générative (Claude AI, Claude Code) à mon workflow, en validant chaque décision
-            technique. Depuis novembre 2026, je suis la formation Lead Developer Java Angular d'OpenClassrooms (titre RNCP niv. 7,
-            Bac+5, 6 mois) pour ajouter Java / Spring Boot à mon socle front-end et évoluer vers des postes full-stack.
+            Développeur Angular/TypeScript, trois ans en production sur des applications temps réel pour des systèmes
+            de parking. <strong>Depuis novembre 2026, je suis la formation Lead Developer Java Angular
+            d'OpenClassrooms (titre RNCP niv. 7, Bac+5, 6 mois) pour ajouter Java / Spring Boot à mon socle front-end
+            et évoluer vers des postes full-stack.</strong> Je conçois des front-ends rigoureux — Clean Architecture,
+            principes SOLID, design patterns et injection de dépendances — testables et taillés pour la charge.
+            Maîtrise de l'état réactif (Signals, RxJS). J'utilise l'IA générative (Claude, Claude Code) en validant
+            chaque décision technique.
           </p>
 
           <!-- ===== SECTION EXPÉRIENCE ===== -->
@@ -324,14 +304,14 @@
               </header>
               <p class="cv-job__company">SEVEN PARK · Saint-Laurent-du-Var</p>
               <p class="cv-job__desc">
-                Développement d'applications Angular/TypeScript haute-performance. Plateforme SaaS de supervision de
-                parkings en temps réel, dashboards financiers, intégration de flux vidéo LPR.
+                Applications Angular/TypeScript haute performance : supervision de parkings en temps réel, dashboards
+                financiers, vidéo LPR.
               </p>
 
               <!-- Liste à puces fléchées -->
               <ul class="cv-bullets">
-                <li class="cv-bullet">SevenBox : plateforme SaaS de supervision de parkings en temps réel, déployée en
-                  production multi-sites.</li>
+                <li class="cv-bullet">SevenBox : application web de supervision de parkings en temps réel, servie par un
+                  serveur installé directement dans les bornes, déployée en production multi-sites.</li>
                 <li class="cv-bullet">Intégration vidéo LPR (reconnaissance de plaques) : flux RTSP/HTTP de caméras
                   Dahua.</li>
                 <li class="cv-bullet">Dashboards financiers Chart.js · Clean Code (SOLID, modules découplés, testables)
@@ -391,7 +371,6 @@
               <li class="cv-tag">Clean Architecture</li>
               <li class="cv-tag">SOLID</li>
               <li class="cv-tag">Design Patterns</li>
-              <li class="cv-tag">TDD</li>
               <li class="cv-tag">Agile / Scrum</li>
             </ul>
           </section>
@@ -412,6 +391,8 @@
           <section class="cv-side-block">
             <h2 class="cv-side-title">Outils</h2>
             <ul class="cv-tags">
+              <li class="cv-tag">IntelliJ IDEA</li>
+              <li class="cv-tag">WebStorm</li>
               <li class="cv-tag">VS Code</li>
               <li class="cv-tag">Claude Code</li>
               <li class="cv-tag">Figma</li>
@@ -587,8 +568,7 @@
           <h2 class="cv-side-title">Vision</h2>
           <p class="cv-vision">
             Évoluer vers une <strong class="cv-highlight">expertise full-stack</strong>, en combinant rigueur technique
-            et sens du produit. Preuve concrète : API REST <strong class="cv-highlight">NestJS/PostgreSQL</strong>
-            développée en solo (multi-tenant, JWT). Formation <strong class="cv-highlight">Java / Spring Boot</strong>
+            et sens du produit. Formation <strong class="cv-highlight">Java / Spring Boot</strong>
             en cours pour consolider le back-end. Ouvert aux opportunités <strong
               class="cv-highlight">SaaS B2B</strong> · <strong class="cv-highlight">FinTech</strong> · <strong
               class="cv-highlight">GreenTech</strong> · <strong class="cv-highlight">HealthTech</strong>.
@@ -658,17 +638,6 @@
     <figure class="cv-photo-lightbox__content">
       <img class="cv-photo-lightbox__img" src="assets/images/profile-photo.jpeg"
         alt="Portrait de Grégory Dernaucourt" />
-      <!-- Bascule discrète : la bichromie est la signature du site, mais la
-           photo d'origine reste consultable à la demande. Style pavé bordé,
-           même vocabulaire que le bouton de fermeture. -->
-      <button type="button" class="cv-photo-lightbox__toggle" data-action="photo-toggle-original"
-        aria-pressed="false">
-        <svg class="cv-photo-lightbox__toggle-icon" viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="12" cy="12" r="3.2" />
-          <path d="M2.5 12c1.9-4.3 5.6-7 9.5-7s7.6 2.7 9.5 7c-1.9 4.3-5.6 7-9.5 7s-7.6-2.7-9.5-7Z" />
-        </svg>
-        <span class="cv-photo-lightbox__toggle-label">Photo d'origine</span>
-      </button>
       <button type="button" class="cv-photo-lightbox__close" data-action="photo-close"
         aria-label="Fermer">&#10005;</button>
     </figure>

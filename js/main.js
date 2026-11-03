@@ -997,38 +997,13 @@
       return;
     }
 
-    var toggleBtn = lightbox.querySelector('[data-action="photo-toggle-original"]');
-    var toggleLabel = toggleBtn ? toggleBtn.querySelector('.cv-photo-lightbox__toggle-label') : null;
     var isOpen = false;
-
-    // La bichromie est l'état par défaut à chaque ouverture : la bascule
-    // vers l'original ne doit pas « fuiter » d'une consultation à l'autre.
-    function resetToDuotone() {
-      lightbox.classList.remove('is-original');
-      if (toggleBtn) {
-        toggleBtn.setAttribute('aria-pressed', 'false');
-      }
-      if (toggleLabel) {
-        toggleLabel.textContent = "Photo d'origine";
-      }
-    }
-
-    function toggleOriginal() {
-      var showingOriginal = lightbox.classList.toggle('is-original');
-      if (toggleBtn) {
-        toggleBtn.setAttribute('aria-pressed', showingOriginal ? 'true' : 'false');
-      }
-      if (toggleLabel) {
-        toggleLabel.textContent = showingOriginal ? 'Version imprimée' : "Photo d'origine";
-      }
-    }
 
     function openLightbox() {
       if (isOpen) {
         return;
       }
       isOpen = true;
-      resetToDuotone();
       lightbox.classList.add('is-open');
       lightbox.setAttribute('aria-hidden', 'false');
       var closeBtn = lightbox.querySelector('.cv-photo-lightbox__close');
@@ -1056,12 +1031,6 @@
       if (target.closest('[data-action="photo-open"]')) {
         event.preventDefault();
         openLightbox();
-        return;
-      }
-
-      if (target.closest('[data-action="photo-toggle-original"]')) {
-        event.preventDefault();
-        toggleOriginal();
         return;
       }
 

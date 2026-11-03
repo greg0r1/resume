@@ -118,13 +118,6 @@ img {
   max-width: 100%;
 }
 
-.riso-defs {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-}
-
 /* Anneau de focus : bleu plein sur papier, tournesol sur fond sombre. */
 :focus-visible {
   outline: 3px solid var(--bleu);
@@ -511,21 +504,6 @@ body::after {
   aspect-ratio: 864 / 1184;
   object-fit: cover;
   object-position: 50% 22%;
-  filter: grayscale(1) contrast(1.14) url(#riso-duotone);
-  mix-blend-mode: multiply;
-}
-
-/* Trame de points par-dessus le portrait : la maille de la riso. */
-.cv-photo-btn::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  color: var(--ink);
-  background-image: var(--trame);
-  background-size: 4px 4px;
-  opacity: 0.2;
-  mix-blend-mode: multiply;
-  pointer-events: none;
 }
 
 /* --- Coordonnées : cinq pavés d'action --- */
@@ -1392,18 +1370,8 @@ a.cv-contact__line:hover {
   display: block;
   width: 100%;
   height: auto;
-  filter: grayscale(1) contrast(1.14) url(#riso-duotone);
-  mix-blend-mode: multiply;
-  transition: filter 0.15s ease;
 }
 
-/* Bascule vers la photo d'origine : la classe est posée en JS sur le
-   conteneur, jamais sur l'image seule, pour que le bouton (état
-   aria-pressed) et l'image restent synchronisés depuis un seul point. */
-.cv-photo-lightbox.is-original .cv-photo-lightbox__img {
-  filter: none;
-  mix-blend-mode: normal;
-}
 
 .cv-photo-lightbox__close {
   position: absolute;
@@ -1422,52 +1390,6 @@ a.cv-contact__line:hover {
 
 /* Bascule discrète : pavé bordé en pied d'image, même vocabulaire que le
    reste du site (bordure encre, ombre décalée, capitales tracées). */
-.cv-photo-lightbox__toggle {
-  position: absolute;
-  left: 50%;
-  bottom: 14px;
-  transform: translateX(-50%);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.4rem 0.7rem;
-  font-family: inherit;
-  font-size: 0.64rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink);
-  background: var(--paper);
-  border: 2px solid var(--ink);
-  box-shadow: 3px 3px 0 var(--rose-deep);
-  cursor: pointer;
-  opacity: 0.88;
-  transition: opacity 0.12s ease, transform 0.12s ease, box-shadow 0.12s ease;
-}
-
-.cv-photo-lightbox__toggle:hover,
-.cv-photo-lightbox__toggle:focus-visible {
-  opacity: 1;
-  transform: translateX(-50%) translateY(-2px);
-  box-shadow: 5px 5px 0 var(--rose-deep);
-}
-
-.cv-photo-lightbox__toggle[aria-pressed="true"] {
-  color: var(--paper);
-  background: var(--rose-deep);
-}
-
-.cv-photo-lightbox__toggle-icon {
-  width: 13px;
-  height: 13px;
-  flex: none;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
 /* ------------------------------------------------------------
    17. RESPONSIVE
    ------------------------------------------------------------ */
@@ -1752,17 +1674,8 @@ a.cv-contact__line:hover {
     background: none;
   }
 
-  .cv-photo-btn::after {
-    display: none;
-  }
-
-  /* Photo d'origine, sans filtre : sur un document que le recruteur imprime
-     ou joint à un dossier, la bichromie décorative cède la place à un
-     portrait reconnaissable. La signature riso reste à l'écran. */
   .cv-photo {
     aspect-ratio: 1 / 1;
-    filter: none;
-    mix-blend-mode: normal;
   }
 
   .cv-header__text {
