@@ -1171,6 +1171,14 @@ a.cv-contact__line:hover {
   color: var(--paper);
 }
 
+/* Écran seulement : le PDF porte déjà l'année dans le rôle. */
+.cv-footer__updated {
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--paper);
+  opacity: 0.8;
+}
+
 /* Lien vers le site : réservé au PDF (voir @media print). Sur le site en
    ligne lui-même, un lien qui pointe vers la page qu'on est déjà en train
    de lire n'a pas de raison d'être ; masqué en display:none, réaffiché
@@ -2086,6 +2094,10 @@ a.cv-contact__line:hover {
     flex: 1 0 100%;
     justify-content: flex-end;
     margin-top: 0.4mm;
+  }
+
+  .cv-footer__updated {
+    display: none;
   }
 
   .cv-footer__name {
